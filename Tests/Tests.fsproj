@@ -68,9 +68,9 @@
   <ItemGroup>
     <Compile Include="Tests.Types.fs" />
     <Compile Include="Tests.WorkingWithDocuments.fs" />
+    <Compile Include="Tests.UnitOfWork.fs" />
     <None Include="app.config" />
     <None Include="packages.config" />
-    <Compile Include="Tests.UnitOfWork.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PostgresDoc\PostgresDoc.fsproj">

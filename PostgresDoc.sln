@@ -5,6 +5,11 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "PostgresDoc", "PostgresDoc\
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tests", "Tests\Tests.fsproj", "{EBCB6098-BAED-4F4A-B984-850460643089}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{44D4DD3E-4D88-4906-A842-1A5FF317BB8F}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
