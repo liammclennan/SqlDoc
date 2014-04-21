@@ -1,0 +1,6 @@
+*.user
+bin/
+*.suo
+obj/
+obj/
+Tests/app.config

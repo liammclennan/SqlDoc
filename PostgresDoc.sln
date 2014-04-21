@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "PostgresDoc", "PostgresDoc\PostgresDoc.fsproj", "{2E2430FC-72E8-4E99-8A26-E34060FA11DD}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tests", "Tests\Tests.fsproj", "{EBCB6098-BAED-4F4A-B984-850460643089}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E2430FC-72E8-4E99-8A26-E34060FA11DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E2430FC-72E8-4E99-8A26-E34060FA11DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E2430FC-72E8-4E99-8A26-E34060FA11DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E2430FC-72E8-4E99-8A26-E34060FA11DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBCB6098-BAED-4F4A-B984-850460643089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBCB6098-BAED-4F4A-B984-850460643089}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBCB6098-BAED-4F4A-B984-850460643089}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBCB6098-BAED-4F4A-B984-850460643089}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
