@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="PostgresDoc.Doc.fs" />
     <Compile Include="PostgresDoc.UnitOfWork.fs" />
+    <Compile Include="PostgresDoc.Migration.fs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
