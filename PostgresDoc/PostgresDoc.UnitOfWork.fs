@@ -44,7 +44,7 @@ let commit (store:Store) (uow:UnitOfWork) =
                         | Insert o -> o :?> IDocument |> insert
                         | Update o -> o :?> IDocument |> update
                         | Delete o -> o :?> IDocument |> delete
-                        | _ -> 0
+                    |> ignore
             with
             | :? NpgsqlException -> 
                 transaction.Rollback()
