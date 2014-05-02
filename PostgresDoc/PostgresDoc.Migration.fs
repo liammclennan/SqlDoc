@@ -25,10 +25,6 @@ let private runMigration store (name, migration) =
         conn.Close()
 
 let private migrateGreaterThan store (assemblyContainingMigrations:System.Reflection.Assembly) latest =
-    let initScript = "create table schema_versions (
-                        migration varchar(500),
-                        whn timestamp
-                      );"
     let migrationNames = assemblyContainingMigrations.GetManifestResourceNames()
                             |> Array.filter (fun name -> name.EndsWith(".sql"))
                             |> Array.sortBy (fun name -> name)
