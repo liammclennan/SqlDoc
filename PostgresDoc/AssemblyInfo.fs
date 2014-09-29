@@ -1,4 +1,4 @@
-﻿namespace PostgresDoc
+﻿namespace PostgresDocInfo
 
 open System.Reflection
 open System.Runtime.CompilerServices

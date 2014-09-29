@@ -4,60 +4,67 @@ open Npgsql
 open Newtonsoft.Json
 
 type IPDDocument =
-    abstract tableName: unit -> string
     abstract id: unit -> System.Guid
 
+[<CLIMutable>]
 type Store = { connString: string }
 
-let insert (store:Store) (os:seq<IPDDocument>) = 
-    if Seq.isEmpty os then
+type Operation =
+    | Insert of obj
+    | Update of obj
+    | Delete of obj
+
+type UnitOfWork = Operation list
+
+let private tableName o = 
+    o.GetType().Name
+
+let commit (store:Store) (uow:UnitOfWork) = 
+    use conn = new NpgsqlConnection(store.connString)
+    conn.Open()
+    let transaction = conn.BeginTransaction()
+
+    let insert (o:IPDDocument) =
+        let pattern = o |> tableName |> sprintf "insert into %s (data) values(:data)"
+        let command = new NpgsqlCommand(pattern, conn)
+        command.Parameters.Add(new NpgsqlParameter(ParameterName = "data", Value = JsonConvert.SerializeObject(o))) |> ignore
+        command.ExecuteNonQuery()
+
+    let update (o:IPDDocument) = 
+        let pattern = o |> tableName |> sprintf "update %s set data = :data where data->>'_id' = :id"
+        let command = new NpgsqlCommand(pattern, conn)
+        command.Parameters.Add(new NpgsqlParameter(ParameterName = "data", Value = JsonConvert.SerializeObject(o))) |> ignore
+        command.Parameters.Add(new NpgsqlParameter(ParameterName = "id", Value = o.id())) |> ignore
+        command.ExecuteNonQuery()
+
+    let delete (o:IPDDocument) =
+        let pattern = o |> tableName |> sprintf "delete from %s where data->>'_id' = :id"
+        let command = new NpgsqlCommand(pattern, conn)
+        command.Parameters.Add(new NpgsqlParameter(ParameterName = "id", Value = o.id())) |> ignore
+        command.ExecuteNonQuery()
+
+    if List.isEmpty uow then 
         ()
     else
-        let tableName = (Seq.head os).tableName()
-        let insertValues (os:IPDDocument seq) =
-            use conn = new NpgsqlConnection(store.connString)
-            conn.Open()
-            let data = os |> Seq.map JsonConvert.SerializeObject |> Seq.map (fun s -> new NpgsqlCommand("insert into " + tableName + " values('" + s + "')", conn))
-            try
-                for c in data do
-                    c.ExecuteNonQuery() |> ignore
-            finally
-                conn.Close()
         try
-            insertValues os
-        with
+            try
+                for op in List.rev uow do
+                    match op with
+                        | Insert o -> o :?> IPDDocument |> insert
+                        | Update o -> o :?> IPDDocument |> update
+                        | Delete o -> o :?> IPDDocument |> delete
+                    |> ignore
+            with
             | :? NpgsqlException -> 
-                use conn = new NpgsqlConnection(store.connString)
-                conn.Open()
-                try
-                    let createComm = new NpgsqlCommand("create table " + tableName + " ( data json NOT NULL )", conn)
-                    createComm.ExecuteNonQuery() |> ignore
-                finally
-                    conn.Close()
-                insertValues os
+                transaction.Rollback()
+                reraise()
+            transaction.Commit()
+        finally
+            conn.Close()
+        ()
 
-let update (store:Store) (o:IPDDocument) =
-    use conn = new NpgsqlConnection(store.connString)
-    conn.Open()
-    let data = JsonConvert.SerializeObject(o)
-    let query = "update " + o.tableName() + " set data = '" + data + "' where data->>'_id' = '" + (o.id().ToString()) + "'"
-    let command = new NpgsqlCommand(query, conn)
-    try
-        command.ExecuteNonQuery() |> ignore
-    finally
-        conn.Close()
-
-let delete (store:Store) (o:IPDDocument) =
-    use conn = new NpgsqlConnection(store.connString)
-    conn.Open()
-    let query = "delete from " + o.tableName() + " where data->>'_id' = '" + (o.id().ToString()) + "'"
-    let command = new NpgsqlCommand(query, conn)
-    try
-        command.ExecuteNonQuery() |> ignore
-    finally
-        conn.Close()
-
-let query<'a> (store:Store) select (ps:Map<string,obj>) : 'a array = 
+let query<'a> (store:Store) select (m:('b * 'c) list) : 'a array = 
+    let ps = Map.ofList m
     use conn = new NpgsqlConnection(store.connString)
     conn.Open()
     use command = new NpgsqlCommand(select, conn)
@@ -76,3 +83,5 @@ let query<'a> (store:Store) select (ps:Map<string,obj>) : 'a array =
         } |> Seq.toArray
     finally
         conn.Close()
+
+

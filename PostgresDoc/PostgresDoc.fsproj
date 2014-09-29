@@ -7,7 +7,6 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>2e2430fc-72e8-4e99-8a26-e34060fa11dd</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>PostgresDoc</RootNamespace>
     <AssemblyName>PostgresDoc</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <Name>PostgresDoc</Name>
@@ -50,7 +49,6 @@
   <Import Project="$(FSharpTargetsPath)" Condition="Exists('$(FSharpTargetsPath)')" />
   <ItemGroup>
     <Compile Include="PostgresDoc.Doc.fs" />
-    <Compile Include="PostgresDoc.UnitOfWork.fs" />
     <Compile Include="PostgresDoc.Migration.fs" />
     <None Include="packages.config" />
     <Compile Include="AssemblyInfo.fs" />
