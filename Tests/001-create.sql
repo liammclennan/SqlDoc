@@ -1,3 +1,3 @@
-﻿create table people ( data json NOT NULL );
+﻿create table Person ( data json NOT NULL );
 
-CREATE UNIQUE INDEX people_id ON people ((data->>'_id'));
+CREATE UNIQUE INDEX people_id ON Person ((data->>'_id'));

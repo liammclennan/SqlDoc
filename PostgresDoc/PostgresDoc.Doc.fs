@@ -3,18 +3,18 @@
 open Npgsql
 open Newtonsoft.Json
 
-type IDocument =
+type IPDDocument =
     abstract tableName: unit -> string
     abstract id: unit -> System.Guid
 
 type Store = { connString: string }
 
-let insert (store:Store) (os:seq<IDocument>) = 
+let insert (store:Store) (os:seq<IPDDocument>) = 
     if Seq.isEmpty os then
         ()
     else
         let tableName = (Seq.head os).tableName()
-        let insertValues (os:IDocument seq) =
+        let insertValues (os:IPDDocument seq) =
             use conn = new NpgsqlConnection(store.connString)
             conn.Open()
             let data = os |> Seq.map JsonConvert.SerializeObject |> Seq.map (fun s -> new NpgsqlCommand("insert into " + tableName + " values('" + s + "')", conn))
@@ -36,7 +36,7 @@ let insert (store:Store) (os:seq<IDocument>) =
                     conn.Close()
                 insertValues os
 
-let update (store:Store) (o:IDocument) =
+let update (store:Store) (o:IPDDocument) =
     use conn = new NpgsqlConnection(store.connString)
     conn.Open()
     let data = JsonConvert.SerializeObject(o)
@@ -47,7 +47,7 @@ let update (store:Store) (o:IDocument) =
     finally
         conn.Close()
 
-let delete (store:Store) (o:IDocument) =
+let delete (store:Store) (o:IPDDocument) =
     use conn = new NpgsqlConnection(store.connString)
     conn.Open()
     let query = "delete from " + o.tableName() + " where data->>'_id' = '" + (o.id().ToString()) + "'"
