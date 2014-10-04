@@ -10,7 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "PostgresDoc", "PostgresDoc\PostgresDoc.fsproj", "{2E2430FC-72E8-4E99-8A26-E34060FA11DD}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tests", "Tests\Tests.fsproj", "{EBCB6098-BAED-4F4A-B984-850460643089}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpTests", "Tests\FSharpTests.fsproj", "{EBCB6098-BAED-4F4A-B984-850460643089}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpTests", "CSharpTests\CSharpTests.csproj", "{1E525424-198D-43D5-8000-6C68ACAD0539}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostgresDocCs", "PostgresDocCs\PostgresDocCs.csproj", "{6CAD766D-D0FC-42CD-A7B8-0CB283F8E0F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +30,14 @@ Global
 		{EBCB6098-BAED-4F4A-B984-850460643089}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBCB6098-BAED-4F4A-B984-850460643089}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBCB6098-BAED-4F4A-B984-850460643089}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E525424-198D-43D5-8000-6C68ACAD0539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E525424-198D-43D5-8000-6C68ACAD0539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E525424-198D-43D5-8000-6C68ACAD0539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E525424-198D-43D5-8000-6C68ACAD0539}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CAD766D-D0FC-42CD-A7B8-0CB283F8E0F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CAD766D-D0FC-42CD-A7B8-0CB283F8E0F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CAD766D-D0FC-42CD-A7B8-0CB283F8E0F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CAD766D-D0FC-42CD-A7B8-0CB283F8E0F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
