@@ -6,11 +6,9 @@ open FsUnit.Xunit
 open PostgresDoc.Doc
 open PostgresDoc.Migration
 
-let store = { connString = ConfigurationManager.AppSettings.["ConnString"] }
-
 [<Fact>]
 let ``when migrating with a single step`` () =
-    System.Reflection.Assembly.GetExecutingAssembly() |> migrate store
+    System.Reflection.Assembly.GetExecutingAssembly() |> migrate ConfigurationManager.AppSettings.["ConnString"]
 
     // it should execute the script
     // it should create a version table and insert the migration log

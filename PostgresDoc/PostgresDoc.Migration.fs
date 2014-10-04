@@ -2,10 +2,9 @@
 
 open System.IO
 open Npgsql
-open PostgresDoc.Doc
 
-let private runMigration store (name, migration) =
-    use conn = new NpgsqlConnection(store.connString)
+let private runMigration (connString:string) (name, migration) =
+    use conn = new NpgsqlConnection(connString)
     conn.Open()
     let transaction = conn.BeginTransaction()
     let migrationCommand = new NpgsqlCommand(migration, conn)
@@ -24,7 +23,7 @@ let private runMigration store (name, migration) =
     finally
         conn.Close()
 
-let private migrateGreaterThan store (assemblyContainingMigrations:System.Reflection.Assembly) latest =
+let private migrateGreaterThan connString (assemblyContainingMigrations:System.Reflection.Assembly) latest =
     let migrationNames = assemblyContainingMigrations.GetManifestResourceNames()
                             |> Array.filter (fun name -> name.EndsWith(".sql"))
                             |> Array.sortBy (fun name -> name)
@@ -33,11 +32,11 @@ let private migrateGreaterThan store (assemblyContainingMigrations:System.Reflec
                         |> Array.map (fun (name, stream) -> name, (new StreamReader(stream)).ReadToEnd())
                         |> Array.filter (fun (name,stream) -> name > latest)
     for (n,m) in migrations do
-        runMigration store (n,m)
+        runMigration connString (n,m)
     ()
 
-let migrate store (assemblyContainingMigrations:System.Reflection.Assembly) =
-    use conn = new NpgsqlConnection(store.connString)
+let migrate (connString:string) (assemblyContainingMigrations:System.Reflection.Assembly) =
+    use conn = new NpgsqlConnection(connString)
     conn.Open()
     let initCommand = new NpgsqlCommand("create table schema_versions (
                         migration varchar(500),
@@ -51,7 +50,7 @@ let migrate store (assemblyContainingMigrations:System.Reflection.Assembly) =
     finally
         conn.Close()
 
-    use selectConn = new NpgsqlConnection(store.connString)
+    use selectConn = new NpgsqlConnection(connString)
     selectConn.Open()
     let command = new NpgsqlCommand("select migration from schema_versions order by migration desc limit 1", selectConn)
     let latestVersion = 
@@ -59,4 +58,4 @@ let migrate store (assemblyContainingMigrations:System.Reflection.Assembly) =
             command.ExecuteScalar() :?> string
         finally
             selectConn.Close()
-    migrateGreaterThan store assemblyContainingMigrations latestVersion
+    migrateGreaterThan connString assemblyContainingMigrations latestVersion
