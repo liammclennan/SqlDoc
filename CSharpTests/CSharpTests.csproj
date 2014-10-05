@@ -42,7 +42,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WorkingWithDocuments.cs" />
+    <Compile Include="WorkingWithDocumentsTests.cs" />
     <Compile Include="Givn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

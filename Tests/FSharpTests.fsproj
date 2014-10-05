@@ -67,9 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tests.Types.fs" />
     <Compile Include="Tests.WorkingWithDocuments.fs" />
-    <Compile Include="Tests.Migration.fs" />
     <None Include="packages.config" />
     <EmbeddedResource Include="001-create.sql" />
     <None Include="App.config" />

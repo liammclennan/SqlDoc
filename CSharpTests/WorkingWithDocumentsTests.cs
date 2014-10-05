@@ -9,7 +9,7 @@ using Xunit;
 
 namespace CSharpTests
 {
-    public class Person : IPDDocument
+    public class Person 
     {
         public Guid _id { get; set; }
         public string Name { get; set; }
@@ -17,15 +17,15 @@ namespace CSharpTests
         public string[] FavouriteThings { get; set; }
     }
 
-    public class WorkingWithDocuments
+    public class WorkingWithDocumentsTests
     {
-        private Queue<Operation> _uow;
+        private Queue<Operation<Guid>> _uow;
         private Person _ernesto;
         private const string connString = "Server=127.0.0.1;Database=testo;Port=5432;User Id=liam;Password=password;";
 
-        public WorkingWithDocuments()
+        public WorkingWithDocumentsTests()
         {
-            _uow = new Queue<Operation>();
+            _uow = new Queue<Operation<Guid>>();
         }
 
         [Fact]
@@ -38,14 +38,14 @@ namespace CSharpTests
                 Age = 31,
                 FavouriteThings = new[] { "Pistachio Ice Cream", "Postgresql", "F#" }
             };
-            Giv.n(() => AnInsert(_ernesto));
+            Giv.n(() => AnOperation(new Operation<Guid>(_ernesto._id, Verb.Insert, _ernesto)));
             Wh.n(TheUnitOfWorkIsCommitted);
             Th.n(TheDocumentWasInserted);
         }
 
-        private void AnInsert(Person person)
+        private void AnOperation(Operation<Guid> operation)
         {
-            _uow.Enqueue(new Operation(Verb.Insert, person));
+            _uow.Enqueue(operation);
         }
 
         private void TheUnitOfWorkIsCommitted()
@@ -59,8 +59,8 @@ namespace CSharpTests
                 connString, 
                 "select data from Person where data->>'_id' = :id", 
                 new Dictionary<string, object> { {"id", _ernesto._id} });
-            Assert.Same(1, e.Length);
-            Assert.Same("Ernesto", e.First().Name);
+            Assert.Equal(1, e.Length);
+            Assert.Equal("Ernesto", e.First().Name);
         }
     }
 }

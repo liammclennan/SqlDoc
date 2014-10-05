@@ -49,7 +49,6 @@
   <Import Project="$(FSharpTargetsPath)" Condition="Exists('$(FSharpTargetsPath)')" />
   <ItemGroup>
     <Compile Include="PostgresDoc.Doc.fs" />
-    <Compile Include="PostgresDoc.Migration.fs" />
     <None Include="packages.config" />
     <Compile Include="AssemblyInfo.fs" />
   </ItemGroup>

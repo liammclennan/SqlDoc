@@ -11,14 +11,16 @@ namespace PostgresDocCs
         Insert,Update,Delete
     }
 
-    public class Operation
+    public class Operation<TKey>
     {
+        public TKey Id { get; private set; }
         public Verb Verb { get; private set; }
         public object Datum { get; private set; }
 
-        public Operation(Verb verb, object datum)
+        public Operation(TKey id, Verb verb, object datum)
         {
             Dbc.Requires(datum != null);
+            Id = id;
             Verb = verb;
             Datum = datum;
         }
@@ -26,30 +28,30 @@ namespace PostgresDocCs
 
     public class UnitOfWork
     {
-        public static void Commit(string connString, Queue<Operation> uow)
+        public static void Commit<TKey>(string connString, Queue<Operation<TKey>> uow)
         {
             PostgresDoc.Doc.commit(new PostgresDoc.Doc.Store(connString), QueueToFSharpList(uow));
         }
 
-        private static Microsoft.FSharp.Collections.FSharpList<PostgresDoc.Doc.Operation> QueueToFSharpList(Queue<Operation> uow)
+        private static Microsoft.FSharp.Collections.FSharpList<PostgresDoc.Doc.Operation<TKey>> QueueToFSharpList<TKey>(Queue<Operation<TKey>> uow)
         {
             if (uow.Count == 0) {
-                return Microsoft.FSharp.Collections.FSharpList<PostgresDoc.Doc.Operation>.Empty;
+                return Microsoft.FSharp.Collections.FSharpList<PostgresDoc.Doc.Operation<TKey>>.Empty;
             }
-            return new Microsoft.FSharp.Collections.FSharpList<PostgresDoc.Doc.Operation>(
+            return new Microsoft.FSharp.Collections.FSharpList<PostgresDoc.Doc.Operation<TKey>>(
                 OperationToOperation(uow.Dequeue()), 
                 QueueToFSharpList(uow));
         }
 
-        private static PostgresDoc.Doc.Operation OperationToOperation(Operation op)
+        private static PostgresDoc.Doc.Operation<TKey> OperationToOperation<TKey>(Operation<TKey> op)
         {
             switch (op.Verb) {
                 case Verb.Insert:
-                    return PostgresDoc.Doc.Operation.NewInsert(op.Datum);
+                    return PostgresDoc.Doc.Operation<TKey>.NewInsert(Tuple.Create(op.Id, op.Datum));
                 case Verb.Update:
-                    return PostgresDoc.Doc.Operation.NewUpdate(op.Datum);
+                    return PostgresDoc.Doc.Operation<TKey>.NewUpdate(Tuple.Create(op.Id, op.Datum));
                 case Verb.Delete:
-                    return PostgresDoc.Doc.Operation.NewDelete(op.Datum);
+                    return PostgresDoc.Doc.Operation<TKey>.NewDelete(Tuple.Create(op.Id, op.Datum));
                 default:
                     throw new Exception("What kind of verb is " + op.Verb + "?");
             }
