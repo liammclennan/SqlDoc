@@ -32,11 +32,11 @@ Unit of Work API
 	var unitOfWork = new Queue<Operation<Guid>>();
 	
 	// insert a document
-	unitOfWork.Enqueue(new Operation<Guid>(ernesto._id, Verb.Insert, ernesto));
+	unitOfWork.Enqueue(Operation.Insert(ernesto._id, ernesto));
 	
 	// modify a document
 	ernesto.Age = 32;
-	unitOfWork.Enqueue(new Operation<Guid>(ernesto._id, Verb.Update, ernesto));
+	unitOfWork.Enqueue(Do.Update(ernesto._id, ernesto));
 	
 	// persist the changes in a transaction
 	UnitOfWork.Commit(connString, unitOfWork)

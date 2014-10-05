@@ -38,7 +38,7 @@ namespace CSharpTests
                 Age = 31,
                 FavouriteThings = new[] { "Pistachio Ice Cream", "Postgresql", "F#" }
             };
-            Giv.n(() => AnOperation(new Operation<Guid>(_ernesto._id, Verb.Insert, _ernesto)));
+            Giv.n(() => AnOperation(Operation.Insert(_ernesto._id, _ernesto)));
             Wh.n(TheUnitOfWorkIsCommitted);
             Th.n(TheDocumentWasInserted);
         }
