@@ -10,7 +10,7 @@ PostgresDoc is written in F# but provides APIs for F# (PostgresDoc) and C# (Post
 Unit of Work API
 ----------------
 
-### C#
+### CSharp
 
 	public class Person 
     {
@@ -48,7 +48,7 @@ Unit of Work API
                 "select data from Person where id = :id", 
                 new Dictionary<string, object> { {"id", ernesto._id} });
 
-### F#
+### FSharp
 
     type Person = 
         { _id: System.Guid; age: int; name: string }
