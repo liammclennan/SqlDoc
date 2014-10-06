@@ -27,7 +27,7 @@ Unit of Work API
                 Age = 31,
                 FavouriteThings = new[] { "Pistachio Ice Cream", "Postgresql", "F#" }
             };
-	var connString = "Server=127.0.0.1;Port=5432;User Id=postgres;Password=*****;Database=testo;";
+	var connString = "Server=127.0.0.1;Port=5432;User Id=******;Password=*****;Database=testo;";
 
 	var unitOfWork = new Queue<Operation<Guid>>();
 	
@@ -53,7 +53,7 @@ Unit of Work API
     type Person = 
         { _id: System.Guid; age: int; name: string }
 
-    let store = { connString = "Server=127.0.0.1;Port=5432;User Id=postgres;Password=*****;Database=testo;" }
+    let store = { connString = "Server=127.0.0.1;Port=5432;User Id=*******;Password=*****;Database=testo;" }
 
     let julio = { _id = System.Guid.NewGuid(); age = 30; name = "Julio" }
     let timmy = { _id = System.Guid.NewGuid(); age = 3; name = "Timmy" }
