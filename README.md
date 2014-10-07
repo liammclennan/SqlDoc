@@ -71,7 +71,6 @@ Unit of Work API
 
     let peopleWhoAreThirty = 
         [ "age", box (30) ] 
-        |> Map.ofList
         |> query<Person> store "select data from people where data->>'age' = :age"
 
 Expected Schema
