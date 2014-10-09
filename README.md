@@ -60,10 +60,10 @@ Unit of Work API
     
 	// newer operations are prepended
     let uow = [ 
-        Delete (timmy._id, box timmy)
-        Update (julio._id, box { julio with age = 31 });
-        Insert (julio._id, box julio);
-        Insert (timmy._id, box timmy);
+        delete timmy._id timmy;
+        update julio._id { julio with age = 31 };
+        insert julio._id julio;
+        insert timmy._id timmy;
         ]
     commit store uow
 

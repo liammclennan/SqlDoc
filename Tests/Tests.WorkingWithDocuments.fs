@@ -14,7 +14,7 @@ let ``insert, read, update, delete a document`` () =
     // insert
     let id = System.Guid.NewGuid() 
     let o = { _id = id; age = 45; name = "Cecile" }
-    commit store [Insert (id, box o)]
+    commit store [insert id  o]
 
     // read
     let read = 
@@ -25,7 +25,7 @@ let ``insert, read, update, delete a document`` () =
 
     // update
     let updated = {o with age = 46 }
-    commit store [Update (o._id, box updated)]
+    commit store [update o._id updated]
 
     // read again :{P
     let readUpdated = 
@@ -35,7 +35,7 @@ let ``insert, read, update, delete a document`` () =
     Array.length readUpdated |> should equal 1
 
     // delete
-    commit store [Delete (o._id, box o)]
+    commit store [delete o._id o]
     let readDeleted = 
         ["id", box (id.ToString())] 
         |> query<Person> store "select data from Person where data->>'_id' = :id"
@@ -46,10 +46,10 @@ let ``commit a unit of work`` () =
     let julio = { _id = System.Guid.NewGuid(); age = 30; name = "Julio" }
     let timmy = { _id = System.Guid.NewGuid(); age = 3; name = "Timmy" }
     let uow = [ 
-        Delete (timmy._id, box timmy)
-        Update (julio._id, box { julio with age = 31 });
-        Insert (julio._id, box julio);
-        Insert (timmy._id, box timmy);
+        delete timmy._id timmy
+        update julio._id { julio with age = 31 };
+        insert julio._id julio;
+        insert timmy._id timmy;
         ]
     commit store uow
     ()
@@ -59,6 +59,6 @@ let ``check perf`` () =
    let uow = [
        for i in [1..10000] do
            let id = System.Guid.NewGuid()
-           yield Insert (id, box { _id = id ; age = i; name = "person" + i.ToString() })
+           yield insert id { _id = id ; age = i; name = "person" + i.ToString() }
    ]
    commit store uow

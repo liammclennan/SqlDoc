@@ -15,6 +15,15 @@ type Operation<'a> =
 
 type UnitOfWork<'a> = Operation<'a> list
 
+let insert (key:'a) (value:'b) =
+    Insert (key, box value)
+
+let update (key:'a) (value:'b) =
+    Update (key, box value)
+
+let delete (key:'a) (value:'b) =
+    Delete (key, box value)
+
 let private tableName o = 
     o.GetType().Name
 
