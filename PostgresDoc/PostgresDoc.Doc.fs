@@ -30,7 +30,7 @@ let private tableName o =
 let commit (store:Store) (uow:UnitOfWork<'a>) = 
     use conn = new NpgsqlConnection(store.connString)
     conn.Open()
-    let transaction = conn.BeginTransaction()
+    use transaction = conn.BeginTransaction()
 
     let insert id o =
         let pattern = o |> tableName |> sprintf "insert into %s (id, data) values(:id, :data)"
