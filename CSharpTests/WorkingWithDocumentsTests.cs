@@ -21,7 +21,7 @@ namespace CSharpTests
     {
         private Queue<Operation<Guid>> _uow;
         private Person _ernesto;
-        private const string connString = "Server=127.0.0.1;Database=testo;Port=5432;User Id=liam;Password=password;";
+        private const string connString = "Server=127.0.0.1;Database=PostgresDocTest;Port=5432;User Id=test;Password=test;";
 
         public WorkingWithDocumentsTests()
         {
@@ -41,6 +41,14 @@ namespace CSharpTests
             Giv.n(() => AnOperation(Operation.Insert(_ernesto._id, _ernesto)));
             Wh.n(TheUnitOfWorkIsCommitted);
             Th.n(TheDocumentWasInserted);
+        }
+
+        [Fact]
+        public void CanQueryAll() {
+            var e = Query<Person>.For(
+                connString,
+                "select data from Person");
+            Assert.NotNull(e);
         }
 
         private void AnOperation(Operation<Guid> operation)

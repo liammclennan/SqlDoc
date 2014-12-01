@@ -8,8 +8,9 @@ namespace PostgresDocCs
 {
     public class Query<T>
     {
-        public static T[] For(string connString, string sql, Dictionary<string, object> parameters)
+        public static T[] For(string connString, string sql, Dictionary<string, object> parameters = null)
         {
+            parameters = parameters ?? new Dictionary<string, object>();
             return PostgresDoc.Doc.query<T>(new PostgresDoc.Doc.Store(connString), sql, DictionaryToListOfTuples(parameters));
         }
 
