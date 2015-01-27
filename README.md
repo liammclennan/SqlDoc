@@ -76,11 +76,11 @@ Unit of Work API
 Expected Schema
 ---------------
 
-The database table should have the same name as the type, an `id` column matching the type used for identifiers, and a json or jsonb `data` column.
+The database table should have the same name as the type, an `id` column matching the type used for identifiers, and a json or jsonb `data` column. The table name should be lowercase. 
 
 In the example above I have used `Guid` (`uuid`) identifiers and a type called `Person` so:
  
-	create table Person ( 
-		id uuid NOT NULL,
+	create table "person" ( 
+		id uuid NOT NULL PRIMARY KEY,
 		data json NOT NULL 
 	);
