@@ -25,7 +25,7 @@ let delete (key:'a) (value:'b) =
     Delete (key, box value)
 
 let private tableName o = 
-    o.GetType().Name
+    o.GetType().Name.ToLowerInvariant()
 
 let commit (store:Store) (uow:UnitOfWork<'a>) = 
     use conn = new NpgsqlConnection(store.connString)
@@ -33,21 +33,21 @@ let commit (store:Store) (uow:UnitOfWork<'a>) =
     use transaction = conn.BeginTransaction()
 
     let insert id o =
-        let pattern = o |> tableName |> sprintf "insert into %s (id, data) values(:id, :data)"
+        let pattern = o |> tableName |> sprintf @"insert into ""%s"" (id, data) values(:id, :data)"
         let command = new NpgsqlCommand(pattern, conn)
         command.Parameters.Add(new NpgsqlParameter(ParameterName = "id", Value = id)) |> ignore
         command.Parameters.Add(new NpgsqlParameter(ParameterName = "data", Value = JsonConvert.SerializeObject(o))) |> ignore
-        command.ExecuteNonQuery()
+        command.ExecuteNonQuery()   
 
     let update id o = 
-        let pattern = o |> tableName |> sprintf "update %s set data = :data where id = :id"
+        let pattern = o |> tableName |> sprintf @"update ""%s"" set data = :data where id = :id"
         let command = new NpgsqlCommand(pattern, conn)
         command.Parameters.Add(new NpgsqlParameter(ParameterName = "data", Value = JsonConvert.SerializeObject(o))) |> ignore
         command.Parameters.Add(new NpgsqlParameter(ParameterName = "id", Value = id)) |> ignore
         command.ExecuteNonQuery()
 
     let delete id o =
-        let pattern = o |> tableName |> sprintf "delete from %s where id = :id"
+        let pattern = o |> tableName |> sprintf @"delete from ""%s"" where id = :id"
         let command = new NpgsqlCommand(pattern, conn)
         command.Parameters.Add(new NpgsqlParameter(ParameterName = "id", Value = id)) |> ignore
         command.ExecuteNonQuery()
