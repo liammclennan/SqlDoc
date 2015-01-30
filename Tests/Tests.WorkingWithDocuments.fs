@@ -20,7 +20,7 @@ let ``insert, read, update, delete a document (sql)`` () =
 
     // read
     let read = 
-        [ "id", box (id.ToString()) ] 
+        [ "id", box id ] 
         |> query<Person> storeSql @"SELECT [Data] from Person 
 Where Data.value('(/Person/_id)[1]', 'uniqueidentifier') = @id"
     o |> should equal read.[0]
@@ -53,7 +53,7 @@ let ``insert, read, update, delete a document`` () =
 
     // read
     let read = 
-        [ "id", box (id.ToString()) ] 
+        [ "id", box id ] 
         |> query<Person> store "select data from Person where data->>'_id' = :id"
     o |> should equal read.[0]
     Array.length read |> should equal 1
@@ -64,7 +64,7 @@ let ``insert, read, update, delete a document`` () =
 
     // read again :{P
     let readUpdated = 
-        ["id", box (id.ToString())] 
+        ["id", box id] 
         |> query<Person> store "select data from Person where data->>'_id' = :id"
     updated |> should equal readUpdated.[0]
     Array.length readUpdated |> should equal 1
@@ -72,7 +72,7 @@ let ``insert, read, update, delete a document`` () =
     // delete
     commit store [delete o._id o]
     let readDeleted = 
-        ["id", box (id.ToString())] 
+        ["id", box id] 
         |> query<Person> store "select data from Person where data->>'_id' = :id"
     Array.length readDeleted |> should equal 0
 
