@@ -4,10 +4,45 @@ open Xunit
 open FsUnit.Xunit
 open PostgresDoc.Doc
 
+[<CLIMutable>]
 type Person = 
     { _id: System.Guid; age: int; name: string }
 
 let store = PostgresStore ConfigurationManager.AppSettings.["ConnString"]
+let storeSql = SqlStore ConfigurationManager.AppSettings.["ConnSql"]
+
+[<Fact>]
+let ``insert, read, update, delete a document (sql)`` () =
+    // insert
+    let id = System.Guid.NewGuid() 
+    let o = { _id = id; age = 45; name = "Cecile" }
+    commit storeSql [insert id  o]
+
+    // read
+    let read = 
+        [ "id", box (id.ToString()) ] 
+        |> query<Person> storeSql @"SELECT [Data] from Person 
+Where Data.value('(/Person/_id)[1]', 'uniqueidentifier') = @id"
+    o |> should equal read.[0]
+    Array.length read |> should equal 1
+
+    // update
+    let updated = {o with age = 46 }
+    commit storeSql [update o._id updated]
+
+    // read again :{P
+    let readUpdated = 
+        ["id", box id] 
+        |> query<Person> storeSql "SELECT [Data] from Person where Id = @id"
+    updated |> should equal readUpdated.[0]
+    Array.length readUpdated |> should equal 1
+
+    // delete
+    commit storeSql [delete o._id o]
+    let readDeleted = 
+        ["id", box id] 
+        |> query<Person> storeSql "select [Data] from Person where Id = @id"
+    Array.length readDeleted |> should equal 0
 
 [<Fact>]
 let ``insert, read, update, delete a document`` () =
@@ -62,3 +97,12 @@ let ``check perf`` () =
            yield insert id { _id = id ; age = i; name = "person" + i.ToString() }
    ]
    commit store uow
+
+[<Fact>]
+let ``check perf (sql)`` () =
+   let uow = [
+       for i in [1..10000] do
+           let id = System.Guid.NewGuid()
+           yield insert id { _id = id ; age = i; name = "person" + i.ToString() }
+   ]
+   commit storeSql uow

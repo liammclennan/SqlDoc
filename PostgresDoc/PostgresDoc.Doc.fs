@@ -35,10 +35,10 @@ let private getConnection = function
     | SqlStore conn -> new SqlConnection(conn) :> DbConnection
     | PostgresStore conn -> new NpgsqlConnection(conn) :> DbConnection
 
-let private getCommand (store:Store) pattern (conn:DbConnection) : DbCommand =
+let private getCommand (store:Store) pattern (conn:DbConnection) (transaction:DbTransaction) : DbCommand =
     match store with 
-        | SqlStore cs -> new SqlCommand(pattern, conn :?> SqlConnection) :> DbCommand
-        | PostgresStore cs -> new NpgsqlCommand(pattern, conn :?> NpgsqlConnection) :> DbCommand
+        | SqlStore cs -> new SqlCommand(pattern, conn :?> SqlConnection, transaction :?> SqlTransaction) :> DbCommand
+        | PostgresStore cs -> new NpgsqlCommand(pattern, conn :?> NpgsqlConnection, transaction :?> NpgsqlTransaction) :> DbCommand
 
 let private getParameter (store:Store) conn k v =
     match store with
@@ -60,27 +60,30 @@ let private deserialize<'a> s = function
     | PostgresStore cs ->
         JsonConvert.DeserializeObject<'a>(s)
 
+let private parameterPrefix = function
+    | SqlStore _ -> "@"        
+    | PostgresStore _ -> ":"
+
 let commit (store:Store) (uow:UnitOfWork<'a>) = 
     use conn = getConnection store
+    conn.Open()
+    use transaction = conn.BeginTransaction()
     
-    let insertUpdate id o pattern =
-        let pattern = o |> tableName |> sprintf pattern
-        let command = getCommand store pattern conn
+    let insertUpdate id o (p:string) =
+        let pattern = System.String.Format(p, o |> tableName, parameterPrefix store)
+        let command = getCommand store pattern conn transaction
         command.Parameters.Add(getParameter store conn "id" id) |> ignore
         command.Parameters.Add(getParameter store conn "data" (serialize o store)) |> ignore
         command.ExecuteNonQuery()
 
-    let insert (id:'a) (o:obj) = insertUpdate id o @"insert into ""%s"" (id, data) values(:id, :data)"
-    let update (id:'a) (o:obj) = insertUpdate id o @"update ""%s"" set data = :data where id = :id"
+    let insert (id:'a) (o:obj) = insertUpdate id o @"insert into ""{0}"" (id, data) values({1}id, {1}data)"
+    let update (id:'a) (o:obj) = insertUpdate id o @"update ""{0}"" set data = {1}data where id = {1}id"
 
     let delete id o =
-        let pattern = o |> tableName |> sprintf @"delete from ""%s"" where id = :id"
-        let command = getCommand store pattern conn
+        let pattern = System.String.Format(@"delete from ""{0}"" where id = {1}id", o |> tableName, parameterPrefix store)
+        let command = getCommand store pattern conn transaction
         command.Parameters.Add(getParameter store conn "id" id) |> ignore
         command.ExecuteNonQuery()
-
-    conn.Open()
-    use transaction = conn.BeginTransaction()
 
     if List.isEmpty uow then 
         ()
@@ -106,7 +109,8 @@ let query<'a> (store:Store) select (m:(string * 'c) list) : 'a array =
     let ps = Map.ofList m
     use conn = getConnection store
     conn.Open()
-    use command = getCommand store select conn
+    use transaction = conn.BeginTransaction()
+    use command = getCommand store select conn transaction
     let parameters = 
         ps 
         |> Map.map (fun k v -> getParameter store conn k v) 
