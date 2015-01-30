@@ -7,7 +7,7 @@ open PostgresDoc.Doc
 type Person = 
     { _id: System.Guid; age: int; name: string }
 
-let store = { connString = ConfigurationManager.AppSettings.["ConnString"] }
+let store = PostgresStore ConfigurationManager.AppSettings.["ConnString"]
 
 [<Fact>]
 let ``insert, read, update, delete a document`` () =

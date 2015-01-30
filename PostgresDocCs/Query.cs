@@ -11,7 +11,7 @@ namespace PostgresDocCs
         public static T[] For(string connString, string sql, Dictionary<string, object> parameters = null)
         {
             parameters = parameters ?? new Dictionary<string, object>();
-            return PostgresDoc.Doc.query<T>(new PostgresDoc.Doc.Store(connString), sql, DictionaryToListOfTuples(parameters));
+            return PostgresDoc.Doc.query<T>(PostgresDoc.Doc.Store.PostgresStore.NewPostgresStore(connString), sql, DictionaryToListOfTuples(parameters));
         }
 
         private static Microsoft.FSharp.Collections.FSharpList<Tuple<string, object>> DictionaryToListOfTuples(Dictionary<string, object> parameters)

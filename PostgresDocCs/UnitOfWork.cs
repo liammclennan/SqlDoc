@@ -10,7 +10,7 @@ namespace PostgresDocCs
     {
         public static void Commit<TKey>(string connString, Queue<Operation<TKey>> uow)
         {
-            PostgresDoc.Doc.commit(new PostgresDoc.Doc.Store(connString), QueueToFSharpList(uow));
+            PostgresDoc.Doc.commit(PostgresDoc.Doc.Store.PostgresStore.NewPostgresStore(connString), QueueToFSharpList(uow));
         }
 
         private static Microsoft.FSharp.Collections.FSharpList<PostgresDoc.Doc.Operation<TKey>> QueueToFSharpList<TKey>(Queue<Operation<TKey>> uow)
