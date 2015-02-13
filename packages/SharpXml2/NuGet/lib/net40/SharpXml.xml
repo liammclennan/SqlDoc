@@ -1,0 +1,1398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>SharpXml</name></assembly>
+<members>
+<member name="">
+
+</member>
+<member name="T:SharpXml.DeserializerFunc">
+<summary>
+ Delegate type that contains type
+ specific deserialization logic
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.PropertyReaderInfo">
+<summary>
+ Record type containing the deserialization information
+ for a specific property member
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.PropertyWriterInfo">
+<summary>
+ Record type containing the serialization information
+ for a specific property member
+</summary>
+</member>
+<member name="T:SharpXml.ReaderFunc">
+<summary>
+ Reader function delegate
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.SerializerFunc">
+<summary>
+ Delegate type that contains type
+ specific serialization logic
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.TypeBuilderInfo">
+<summary>
+ Record type containing the deserialization information
+ of a specific type and all its members that have to deserialized
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.TypeInfo">
+<summary>
+ Record type containing the type specific information
+ for the first element to serialize
+</summary>
+</member>
+<member name="T:SharpXml.WriterFunc">
+<summary>
+ Writer function delegate
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="P:SharpXml.XmlConfig.WriteXmlHeader(System.Boolean)">
+<summary>
+ Whether to include a XML header sequence in the
+ serialized output
+</summary>
+</member>
+<member name="P:SharpXml.XmlConfig.ThrowOnError(System.Boolean)">
+<summary>
+ Whether to throw exceptions on deserialization errors
+</summary>
+</member>
+<member name="P:SharpXml.XmlConfig.IncludeNullValues(System.Boolean)">
+<summary>
+ Whether to include null values in the serialized output
+</summary>
+</member>
+<member name="P:SharpXml.XmlConfig.ExcludeTypeInfo(System.Boolean)">
+<summary>
+ Whether to exclude additional type information for
+ dynamic/anonymous types in the serialized output
+</summary>
+</member>
+<member name="P:SharpXml.XmlConfig.EmitCamelCaseNames(System.Boolean)">
+<summary>
+ Whether to convert property names into camel case
+ for the serialized output (i.e &apos;MyValue&apos; -&gt; &apos;myValue&apos;)
+</summary>
+</member>
+<member name="P:SharpXml.XmlConfig.WriteXmlHeader">
+<summary>
+ Whether to include a XML header sequence in the
+ serialized output
+</summary>
+</member>
+<member name="P:SharpXml.XmlConfig.ThrowOnError">
+<summary>
+ Whether to throw exceptions on deserialization errors
+</summary>
+</member>
+<member name="P:SharpXml.XmlConfig.Instance">
+<summary>
+ XmlConfig singleton instance
+</summary>
+</member>
+<member name="P:SharpXml.XmlConfig.IncludeNullValues">
+<summary>
+ Whether to include null values in the serialized output
+</summary>
+</member>
+<member name="P:SharpXml.XmlConfig.ExcludeTypeInfo">
+<summary>
+ Whether to exclude additional type information for
+ dynamic/anonymous types in the serialized output
+</summary>
+</member>
+<member name="P:SharpXml.XmlConfig.EmitCamelCaseNames">
+<summary>
+ Whether to convert property names into camel case
+ for the serialized output (i.e &apos;MyValue&apos; -&gt; &apos;myValue&apos;)
+</summary>
+</member>
+<member name="M:SharpXml.XmlConfig.UnregisterSerializer``1">
+<summary>
+ Unregister the serializer delegate for the specified type
+</summary>
+</member>
+<member name="M:SharpXml.XmlConfig.UnregisterDeserializer``1">
+<summary>
+ Unregister the deserializer delegate for the specified type
+</summary>
+</member>
+<member name="M:SharpXml.XmlConfig.TryGetSerializer(System.Type)">
+<summary>
+ Try to get a serializer delegate for the specified type
+</summary>
+</member>
+<member name="M:SharpXml.XmlConfig.TryGetDeserializer(System.Type)">
+<summary>
+ Try to get a deserializer delegate for the specified type
+</summary>
+</member>
+<member name="M:SharpXml.XmlConfig.RegisterSerializer``1(SharpXml.SerializerFunc)">
+<summary>
+ Register a serializer delegate for the specified type
+</summary>
+</member>
+<member name="M:SharpXml.XmlConfig.RegisterDeserializer``1(SharpXml.DeserializerFunc)">
+<summary>
+ Register a deserializer delegate for the specified type
+</summary>
+</member>
+<member name="M:SharpXml.XmlConfig.ClearSerializers">
+<summary>
+ Clear all registered custom serializer delegates
+</summary>
+</member>
+<member name="M:SharpXml.XmlConfig.ClearDeserializers">
+<summary>
+ Clear all registered custom deserializer delegates
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.XmlConfig">
+<summary>
+ Singleton configuration class containing all
+ preferences of the XmlSerializer
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="F:SharpXml.SharpXml.XmlSerializer.xmlHeader">
+<summary>
+ Header string for XML output
+</summary>
+</member>
+<member name="F:SharpXml.SharpXml.XmlSerializer.utf8encoding">
+<summary>
+ UTF-8 encoding without BOM
+</summary>
+</member>
+<member name="M:SharpXml.XmlSerializer.SerializeToWriter``1(System.IO.TextWriter,``0)">
+<summary>
+ Serialize the given object into XML output using the specified TextWriter
+</summary>
+</member>
+<member name="M:SharpXml.XmlSerializer.SerializeToString``1(``0)">
+<summary>
+ Serialize the given object into a XML string
+</summary>
+</member>
+<member name="M:SharpXml.XmlSerializer.SerializeToString(System.Object,System.Type)">
+<summary>
+ Serialize the given object into a XML string
+</summary>
+</member>
+<member name="M:SharpXml.XmlSerializer.DeserializeFromString(System.String,System.Type)">
+<summary>
+ Deserialize the input string into the specified type
+</summary>
+</member>
+<member name="M:SharpXml.XmlSerializer.DeserializeFromString``1(System.String)">
+<summary>
+ Deserialize the input string into the specified type
+</summary>
+</member>
+<member name="M:SharpXml.XmlSerializer.DeserializeFromStream(System.IO.Stream,System.Type)">
+<summary>
+ Deserialize the input stream into the specified type
+</summary>
+</member>
+<member name="M:SharpXml.XmlSerializer.DeserializeFromStream``1(System.IO.Stream)">
+<summary>
+ Deserialize the input stream into the specified type
+</summary>
+</member>
+<member name="M:SharpXml.XmlSerializer.DeserializeFromReader(System.IO.TextReader,System.Type)">
+<summary>
+ Deserialize the input reader into the specified type
+</summary>
+</member>
+<member name="M:SharpXml.XmlSerializer.DeserializeFromReader``1(System.IO.TextReader)">
+<summary>
+ Deserialize the input reader into the specified type
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.XmlSerializer">
+<summary>
+ XML serializer
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.SharpXmlException">
+<summary>
+ Application exception thrown during SharpXml
+ serialization and deserialization
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.Assembly">
+<summary>
+ Module containing Assembly related helper functions
+</summary>
+</member>
+<member name="M:SharpXml.Atom.clearAtomDict``2(Microsoft.FSharp.Core.FSharpRef{System.Collections.Generic.Dictionary{``0,``1}})">
+<summary>
+ Atomically clear the specified dictionary
+</summary>
+</member>
+<member name="M:SharpXml.Atom.removeAtomDictElement``2(Microsoft.FSharp.Core.FSharpRef{System.Collections.Generic.Dictionary{``0,``1}},``0)">
+<summary>
+ Atomically remove an element from the specified dictionary
+</summary>
+</member>
+<member name="M:SharpXml.Atom.updateAtomDict``2(Microsoft.FSharp.Core.FSharpRef{System.Collections.Generic.Dictionary{``0,``1}},``0,``1)">
+<summary>
+ Atomically update the specified dictionary
+</summary>
+</member>
+<member name="M:SharpXml.Atom.swapRef``1(Microsoft.FSharp.Core.FSharpRef{``0},``0)">
+<summary>
+ Atomically swap the specified reference cell
+</summary>
+</member>
+<member name="T:SharpXml.Atom">
+<summary>
+ Module containing atomic operations like
+ thread-safe dictionary update
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.Attempt.AttemptBuilder">
+<summary>
+ Attempt computation builder
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.Attempt">
+<summary>
+ Module containing the Attempt computation builder
+</summary>
+</member>
+<member name="M:SharpXml.Deserializer.getReaderFunc(System.Type)">
+<summary>
+ Get the ReaderFunc for the specified type.
+ The function is either obtained from the cache or built on request
+</summary>
+</member>
+<member name="M:SharpXml.Deserializer.determineReader(System.Type)">
+<summary>
+ Determine the ReaderFunc delegate for the given Type
+</summary>
+</member>
+<member name="M:SharpXml.Deserializer.getClassReader``1(System.Type,Microsoft.FSharp.Core.Unit)">
+<summary>
+ Try to determine a matching class reader function
+</summary>
+</member>
+<member name="M:SharpXml.Deserializer.readClass(SharpXml.TypeBuilderInfo,SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Class reader function
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:SharpXml.Deserializer.getListReader(System.Type,Microsoft.FSharp.Core.Unit)">
+<summary>
+ Try to determine a reader function for list types
+</summary>
+</member>
+<member name="M:SharpXml.Deserializer.getArrayReader(System.Type,Microsoft.FSharp.Core.Unit)">
+<summary>
+ Try to determine a reader function for array types
+</summary>
+</member>
+<member name="M:SharpXml.Deserializer.getGenericROReader``1(``0,System.Type,System.Type)">
+<summary>
+ Get a reader function for generic readonly collections
+</summary>
+</member>
+<member name="M:SharpXml.Deserializer.getGenericCollectionReader(System.Type,System.Type)">
+<summary>
+ Get a reader function for generic collections
+</summary>
+</member>
+<member name="P:SharpXml.Deserializer.getLinkedListReader">
+<summary>
+ Get a reader function for generic linked lists
+</summary>
+</member>
+<member name="P:SharpXml.Deserializer.getStackReader">
+<summary>
+ Get a reader function for stacks
+</summary>
+</member>
+<member name="P:SharpXml.Deserializer.getQueueReader">
+<summary>
+ Get a reader function for queues
+</summary>
+</member>
+<member name="P:SharpXml.Deserializer.getHashSetReader">
+<summary>
+ Get a reader function for hash sets
+</summary>
+</member>
+<member name="P:SharpXml.Deserializer.getTypedArrayReader">
+<summary>
+ Get a reader function for arrays
+</summary>
+</member>
+<member name="P:SharpXml.Deserializer.getTypedListReader">
+<summary>
+ Get a reader function for generic lists
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="M:SharpXml.Deserializer.getTypeBuilderInfo(System.Type)">
+<summary>
+ Determine the TypeBuilderInfo for the given Type
+</summary>
+</member>
+<member name="M:SharpXml.Deserializer.buildTypeBuilderInfo(System.Type)">
+<summary>
+ Build the TypeBuilderInfo record for the given Type
+</summary>
+</member>
+<member name="M:SharpXml.Deserializer.buildReaderInfo(System.Reflection.PropertyInfo)">
+<summary>
+ Build the PropertyReaderInfo record based on the given PropertyInfo
+</summary>
+</member>
+<member name="M:SharpXml.Deserializer.getNameValueCollectionReader``1(System.Type)">
+<summary>
+ Get a reader function for NameValueCollection types
+</summary>
+</member>
+<member name="M:SharpXml.Deserializer.getStaticParseMethod``1(System.Type,Microsoft.FSharp.Core.Unit)">
+<summary>
+ Try to get a reader based on the type&apos;s static &apos;ParseXml&apos; method
+</summary>
+</member>
+<member name="M:SharpXml.Deserializer.findStaticParseMethod(System.Type)">
+<summary>
+ Try to find the static &apos;ParseXml&apos; method on the specified type
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="M:SharpXml.Deserializer.getStringTypeConstructor``1(System.Type,Microsoft.FSharp.Core.Unit)">
+<summary>
+ Try to get a reader based on a string value constructor
+</summary>
+</member>
+<member name="M:SharpXml.Deserializer.findStringConstructor(System.Type)">
+<summary>
+ Try to find a constructor of the specified type
+ with a single string parameter
+</summary>
+</member>
+<member name="P:SharpXml.Deserializer.readerCache">
+<summary>
+ Reader function cache
+</summary>
+</member>
+<member name="P:SharpXml.Deserializer.propertyCache">
+<summary>
+ TypeBuilder dictionary
+</summary>
+</member>
+<member name="P:SharpXml.Deserializer.parseMethodFlags">
+<summary>
+ BindingFlags to find the static parse method
+</summary>
+</member>
+<member name="P:SharpXml.Deserializer.parseMethodName">
+<summary>
+ Name of the static parsing method
+</summary>
+</member>
+<member name="T:SharpXml.Deserializer">
+<summary>
+ Deserialization logic
+</summary>
+</member>
+<member name="M:SharpXml.DictionaryDeserializer.hashTableReader(SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Reader function for non-generic HashTable
+</summary>
+</member>
+<member name="M:SharpXml.DictionaryDeserializer.nameValueCollectionReader``1(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``0},SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Reader function for non-generic NameValueCollection
+</summary>
+</member>
+<member name="M:SharpXml.DictionaryDeserializer.dictReader``2(Microsoft.FSharp.Core.FSharpFunc{SharpXml.XmlParser.ParserInfo,System.Object},Microsoft.FSharp.Core.FSharpFunc{SharpXml.XmlParser.ParserInfo,System.Object},SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Dictionary reader function
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.DictionaryDeserializer">
+<summary>
+ Dictionary related deserialization logic
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:SharpXml.Extensions.String.ToCamelCase(System.String)">
+<summary>
+ Convert the given string to CamelCase form
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.Extensions">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.GenericTypes">
+<summary>
+ Module containing often used generic type definitions
+</summary>
+</member>
+<member name="M:SharpXml.ListDeserializer.charArrayReader(SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Specialized reader function for char arrays
+</summary>
+</member>
+<member name="M:SharpXml.ListDeserializer.byteArrayReader(SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Specialized reader function for byte arrays
+</summary>
+</member>
+<member name="M:SharpXml.ListDeserializer.intArrayReader(SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Specialized reader function for integer arrays
+</summary>
+</member>
+<member name="M:SharpXml.ListDeserializer.stringArrayReader(SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Specialized reader function for string arrays
+</summary>
+</member>
+<member name="M:SharpXml.ListDeserializer.linkedListReader``1(Microsoft.FSharp.Core.FSharpFunc{SharpXml.XmlParser.ParserInfo,System.Object},SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Reader function for generic linked lists
+</summary>
+</member>
+<member name="M:SharpXml.ListDeserializer.stackReader``1(Microsoft.FSharp.Core.FSharpFunc{SharpXml.XmlParser.ParserInfo,System.Object},SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Reader function for stacks
+</summary>
+</member>
+<member name="M:SharpXml.ListDeserializer.queueReader``1(Microsoft.FSharp.Core.FSharpFunc{SharpXml.XmlParser.ParserInfo,System.Object},SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Reader function for queues
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="M:SharpXml.ListDeserializer.genericCollectionReader``1(Microsoft.FSharp.Core.FSharpFunc{SharpXml.XmlParser.ParserInfo,System.Object},SharpXml.EmptyConstructor,SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Reader function for generic collections
+</summary>
+</member>
+<member name="M:SharpXml.ListDeserializer.hashSetReader``1(Microsoft.FSharp.Core.FSharpFunc{SharpXml.XmlParser.ParserInfo,System.Object},SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Reader function for hash sets
+</summary>
+</member>
+<member name="M:SharpXml.ListDeserializer.collectionReader(SharpXml.EmptyConstructor,SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Reader function for untyped collections
+</summary>
+</member>
+<member name="M:SharpXml.ListDeserializer.arrayReader``1(Microsoft.FSharp.Core.FSharpFunc{SharpXml.XmlParser.ParserInfo,System.Object},SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Reader function for arrays
+</summary>
+</member>
+<member name="M:SharpXml.ListDeserializer.clrListReader``1(Microsoft.FSharp.Core.FSharpFunc{SharpXml.XmlParser.ParserInfo,System.Object},SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Reader function for CLR list (System.Collections.Generic.List&lt;T&gt;)
+</summary>
+</member>
+<member name="M:SharpXml.ListDeserializer.listReader``1(Microsoft.FSharp.Core.FSharpFunc{SharpXml.XmlParser.ParserInfo,System.Object},SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Reader function for immutable F# lists
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:SharpXml.ListDeserializer.parseListElement``1(Microsoft.FSharp.Core.FSharpFunc{SharpXml.XmlParser.ParserInfo,System.Object},SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Parse one element for a deserialised list structure
+</summary>
+</member>
+<member name="T:SharpXml.ListDeserializer">
+<summary>
+ List related deserialization logic
+</summary>
+</member>
+<member name="M:SharpXml.ListSerializer.getGenericEnumerableWriter``3(``0,System.Type)">
+<summary>
+ Wrapper function to get the generic IEnumerable writer
+</summary>
+</member>
+<member name="M:SharpXml.ListSerializer.writeGenericEnumerable``1(Microsoft.FSharp.Core.FSharpFunc{SharpXml.NameInfo,Microsoft.FSharp.Core.FSharpFunc{System.IO.TextWriter,Microsoft.FSharp.Core.FSharpFunc{System.Object,Microsoft.FSharp.Core.Unit}}},SharpXml.NameInfo,System.IO.TextWriter,System.Object)">
+<summary>
+ Writer function for generic IEnumerables
+</summary>
+</member>
+<member name="M:SharpXml.ListSerializer.writeEnumerable(Microsoft.FSharp.Core.FSharpFunc{System.Type,Microsoft.FSharp.Core.FSharpFunc{SharpXml.NameInfo,Microsoft.FSharp.Core.FSharpFunc{System.IO.TextWriter,Microsoft.FSharp.Core.FSharpFunc{System.Object,Microsoft.FSharp.Core.Unit}}}},SharpXml.NameInfo,System.IO.TextWriter,System.Object)">
+<summary>
+ Writer function for untyped IEnumerables
+</summary>
+</member>
+<member name="M:SharpXml.ListSerializer.writeStrArray(SharpXml.NameInfo,System.IO.TextWriter,System.Object)">
+<summary>
+ Writer function for string arrays
+</summary>
+</member>
+<member name="M:SharpXml.ListSerializer.writeIntArray(SharpXml.NameInfo,System.IO.TextWriter,System.Object)">
+<summary>
+ Writer function for integer arrays
+</summary>
+</member>
+<member name="T:SharpXml.ListSerializer">
+<summary>
+ Serialization logic for list and collection types
+</summary>
+</member>
+<member name="M:SharpXml.ReflectionHelpers.getObjSetter(System.Reflection.PropertyInfo)">
+<summary>
+ Build an object based setter expression function for the
+ specified PropertyInfo
+</summary>
+</member>
+<member name="M:SharpXml.ReflectionHelpers.getSetter``1(System.Reflection.PropertyInfo)">
+<summary>
+ Build a setter expression function for the
+ specified PropertyInfo
+</summary>
+</member>
+<member name="M:SharpXml.ReflectionHelpers.getObjGetter(System.Reflection.PropertyInfo)">
+<summary>
+ Build an object based getter expression function for the
+ specified PropertyInfo
+</summary>
+</member>
+<member name="M:SharpXml.ReflectionHelpers.getGetter``1(System.Reflection.PropertyInfo)">
+<summary>
+ Build a getter expression function for the
+ specified PropertyInfo
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.ReflectionHelpers">
+
+</member>
+<member name="M:SharpXml.Serializer.writeType``1(System.IO.TextWriter,``0,System.Type)">
+<summary>
+ Write the given type using the appropriate serialization logic
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.getWriterFunc(System.Type)">
+<summary>
+ Get the writer function to serialize the
+ specified type
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.determineWriter``1(System.Type)">
+<summary>
+ Determine the associated serialization writer
+ function for the specified type
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="M:SharpXml.Serializer.writeDictionary(SharpXml.NameInfo,System.IO.TextWriter,System.Object)">
+<summary>
+ Writer function for a dictionary
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.getArrayWriter``2(System.Type,Microsoft.FSharp.Core.Unit)">
+<summary>
+ Try to determine a writer function for array types
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.getDictionaryWriter``2(System.Type,Microsoft.FSharp.Core.Unit)">
+<summary>
+ Try to determine a writer function for a dictionary
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.getClassWriter``3(System.Type,Microsoft.FSharp.Core.Unit)">
+<summary>
+ Try to determine a class or interface serialization function
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.writeClass``1(SharpXml.PropertyWriterInfo[],``0,System.IO.TextWriter,System.Object)">
+<summary>
+ Writer for classes and other reference types
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.getProperties(System.Type)">
+<summary>
+ Get the PropertyWriterInfo array for the given type
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.getEnumerableWriter``2(System.Type,Microsoft.FSharp.Core.Unit)">
+<summary>
+ Try to determine a enumerable serialization function
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.buildPropertyWriterInfo(System.Reflection.PropertyInfo)">
+<summary>
+ Build a PropertyWriterInfo object based on the
+ specified PropertyInfo
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.getNameInfo(System.Reflection.PropertyInfo)">
+<summary>
+ Build a NameInfo object for the given PropertyInfo
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.getDefaultNameInfo(System.String)">
+<summary>
+ Return a default NameInfo instance for the specified name
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.getCustomWriter``2(System.Type,Microsoft.FSharp.Core.Unit)">
+<summary>
+ Try to get a custom serializer function
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.getStaticWriter``2(System.Type,Microsoft.FSharp.Core.Unit)">
+<summary>
+ Try to determine a static function &apos;ToXml&apos;
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.getInstanceWriter``2(System.Type,Microsoft.FSharp.Core.Unit)">
+<summary>
+ Try to determine a member function &apos;ToXml&apos;
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.getValueTypeWriter``3(System.Type,Microsoft.FSharp.Core.Unit)">
+<summary>
+ Try to determine a matching value type writer function
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.getStringWriter``3(System.Type,Microsoft.FSharp.Core.Unit)">
+<summary>
+ Try to determine the string writer function
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.getTypeInfo(System.Type)">
+<summary>
+ Get the TypeInfo object associated with the given Type
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.buildTypeInfo(System.Type)">
+<summary>
+ Build a TypeInfo object based on the given Type
+</summary>
+</member>
+<member name="M:SharpXml.Serializer.getTypeName(System.Type)">
+<summary>
+ Determine the name of the TypeInfo based on the given type
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="M:SharpXml.Serializer.getSpecialWriters``3(System.Type,Microsoft.FSharp.Core.Unit)">
+<summary>
+ Try to determine one of a special serialization
+ function, i.e. Exception, Uri
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.Serializer">
+<summary>
+ Serialization logic
+</summary>
+</member>
+<member name="M:SharpXml.SerializerBase.writeEmptyTag(System.String,System.IO.TextWriter)">
+<summary>
+ Empty tag writer function
+</summary>
+</member>
+<member name="M:SharpXml.SerializerBase.writeTagNamespace(System.String,System.String,SharpXml.NameInfo,System.IO.TextWriter,Microsoft.FSharp.Core.FSharpFunc{SharpXml.NameInfo,Microsoft.FSharp.Core.FSharpFunc{System.IO.TextWriter,Microsoft.FSharp.Core.FSharpFunc{System.Object,Microsoft.FSharp.Core.Unit}}},System.Object)">
+<summary>
+ XML tag writer function with an additional namespace attribute
+</summary>
+</member>
+<member name="M:SharpXml.SerializerBase.writeTag(System.String,SharpXml.NameInfo,System.IO.TextWriter,Microsoft.FSharp.Core.FSharpFunc{SharpXml.NameInfo,Microsoft.FSharp.Core.FSharpFunc{System.IO.TextWriter,Microsoft.FSharp.Core.FSharpFunc{System.Object,Microsoft.FSharp.Core.Unit}}},System.Object)">
+<summary>
+ General purpose XML tags writer function
+</summary>
+</member>
+<member name="T:SharpXml.SerializerBase">
+
+</member>
+<member name="M:SharpXml.TypeHelper.|GenericTypesOf|_|(System.Type,System.Type)">
+<summary>
+ Active pattern wrapper for generic type detection with 2 type arguments
+</summary>
+</member>
+<member name="M:SharpXml.TypeHelper.|GenericTypeOf|_|(System.Type,System.Type)">
+<summary>
+ Active pattern wrapper for generic type detection with 1 type argument
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.TypeHelper">
+<summary>
+ Module containing various helper functions related to types
+</summary>
+</member>
+<member name="M:SharpXml.Utils.isUnionCase``2(Microsoft.FSharp.Quotations.FSharpExpr{Microsoft.FSharp.Core.FSharpFunc{``0,``1}})">
+<summary>
+ Generete a Union type predicate function
+</summary>
+</member>
+<member name="M:SharpXml.Utils.notImplemented``1(System.String)">
+<summary>
+ Throw a NotImplementedException
+</summary>
+</member>
+<member name="M:SharpXml.Utils.removeGenericSuffix(System.String)">
+<summary>
+ Remove the name suffix of a generic type name
+</summary>
+</member>
+<member name="M:SharpXml.Utils.notWhite(System.String)">
+<summary>
+ Convenience function for IsNullOrWhiteSpace
+</summary>
+</member>
+<member name="M:SharpXml.Utils.notEmpty(System.String)">
+<summary>
+ Convenience function for IsNullOrEmpty
+</summary>
+</member>
+<member name="M:SharpXml.Utils.tryToOption``1(System.Boolean,``0)">
+<summary>
+ Turn a tuple typically returned by &apos;TryGetValue&apos;
+ functions into an Option type
+</summary>
+</member>
+<member name="M:SharpXml.Utils.toOption``1(``0)">
+<summary>
+ Wrap a reference (nullable) type into an Option
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.Utils">
+<summary>
+ General purpose utility functions
+</summary>
+</member>
+<member name="P:SharpXml.ValueTypeDeserializer.stringReader">
+<summary>
+ String reader function
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.ValueTypeDeserializer">
+
+</member>
+<member name="M:SharpXml.ValueTypeSerializer.getValueTypeWriter``3(System.Type)">
+<summary>
+ Get the appropriate writer function for the
+ specified value type
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:SharpXml.ValueTypeSerializer.toShortestXsdFormat(System.DateTime)">
+<summary>
+ Convert the given DateTime into the shortest possible XSD format
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.ValueTypeSerializer">
+<summary>
+ Module containing the serialization logic
+ for value types
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:SharpXml.XmlParser.eatContent(SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Eat the content of a XML tag and return the
+ string value as well as the end index
+</summary>
+</member>
+<member name="M:SharpXml.XmlParser.eatRoot(SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Parse the XML root node and the optional &lt;?xml ?&gt; tag
+</summary>
+</member>
+<member name="M:SharpXml.XmlParser.eatSomeTag(SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Eat a XML tag and return its type being one of Open, Close or Single
+</summary>
+</member>
+<member name="M:SharpXml.XmlParser.eatTag(SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Eat a XML tag and return its name and
+ type being one of Open, Close or Single
+</summary>
+</member>
+<member name="M:SharpXml.XmlParser.eatClosingTag(SharpXml.XmlParser.ParserInfo)">
+<summary>
+ Eat a closing XML tag
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.XmlParser">
+
+</member>
+</members>
+</doc>

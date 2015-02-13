@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>SharpXml.Common</name></assembly>
+<members>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="P:SharpXml.Common.XmlElementAttribute.ValueName(System.String)">
+<summary>
+ Name to override value names of key-value collections
+</summary>
+</member>
+<member name="P:SharpXml.Common.XmlElementAttribute.Namespace(System.String)">
+<summary>
+ Optional namespace to use on serialization
+</summary>
+</member>
+<member name="P:SharpXml.Common.XmlElementAttribute.Name(System.String)">
+<summary>
+ Name to override the property name
+</summary>
+</member>
+<member name="P:SharpXml.Common.XmlElementAttribute.KeyName(System.String)">
+<summary>
+ Name to override key names of key-value collections
+</summary>
+</member>
+<member name="P:SharpXml.Common.XmlElementAttribute.ItemName(System.String)">
+<summary>
+ Name to override item names of collections
+</summary>
+</member>
+<member name="P:SharpXml.Common.XmlElementAttribute.ValueName">
+<summary>
+ Name to override value names of key-value collections
+</summary>
+</member>
+<member name="P:SharpXml.Common.XmlElementAttribute.Namespace">
+<summary>
+ Optional namespace to use on serialization
+</summary>
+</member>
+<member name="P:SharpXml.Common.XmlElementAttribute.Name">
+<summary>
+ Name to override the property name
+</summary>
+</member>
+<member name="P:SharpXml.Common.XmlElementAttribute.KeyName">
+<summary>
+ Name to override key names of key-value collections
+</summary>
+</member>
+<member name="P:SharpXml.Common.XmlElementAttribute.ItemName">
+<summary>
+ Name to override item names of collections
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:SharpXml.Common.XmlElementAttribute">
+<summary>
+ Attribute that allows customization of the serialization
+ and deserialization behavior of the SharpXml.XmlSerializer
+</summary>
+</member>
+</members>
+</doc>
