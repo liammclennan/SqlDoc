@@ -5,11 +5,21 @@ open FsUnit.Xunit
 open PostgresDoc.Doc
 
 [<CLIMutable>]
-type Person = 
-    { _id: System.Guid; age: int; name: string }
+type Person = { _id: System.Guid; age: int; name: string }
+type CustomerName(firstName, middleInitial, lastName) = 
+    member this.FirstName = firstName
+    member this.MiddleInitial = middleInitial
+    member this.LastName = lastName
 
 let store = PostgresStore ConfigurationManager.AppSettings.["ConnString"]
 let storeSql = SqlStore ConfigurationManager.AppSettings.["ConnSql"]
+
+[<Fact>]
+let ``insert (sql)`` () =
+    // insert
+    let id = System.Guid.NewGuid() 
+    let o = { _id = id; age = 45; name = "Cecile" }
+    commit storeSql [insert id  o]
 
 [<Fact>]
 let ``insert, read, update, delete a document (sql)`` () =
@@ -98,11 +108,11 @@ let ``check perf`` () =
    ]
    commit store uow
 
-[<Fact>]
-let ``check perf (sql)`` () =
-   let uow = [
-       for i in [1..10000] do
-           let id = System.Guid.NewGuid()
-           yield insert id { _id = id ; age = i; name = "person" + i.ToString() }
-   ]
-   commit storeSql uow
+//[<Fact>]
+//let ``check perf (sql)`` () =
+//   let uow = [
+//       for i in [1..10000] do
+//           let id = System.Guid.NewGuid()
+//           yield insert id { _id = id ; age = i; name = "person" + i.ToString() }
+//   ]
+//   commit storeSql uow

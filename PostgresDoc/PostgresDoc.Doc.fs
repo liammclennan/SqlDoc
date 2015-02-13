@@ -4,9 +4,7 @@ open Npgsql
 open System.Data.SqlClient
 open System.Data.Common
 open Newtonsoft.Json
-open System.Xml.Serialization
 open System.IO
-open System.Xml
 
 type Store = SqlStore of connString:string | PostgresStore of connString:string
 
@@ -47,16 +45,15 @@ let private getParameter (store:Store) conn k v =
 
 let private serialize o = function
     | SqlStore cs -> 
-        let serializer, writer = new XmlSerializer(o.GetType()), new StringWriter()
-        serializer.Serialize(writer, o)
-        writer.ToString()
+        let s = Serializer.serializeXml o
+//        System.Console.WriteLine(s)
+        s
     | PostgresStore cs ->
         JsonConvert.SerializeObject(o)
 
 let private deserialize<'a> s = function
     | SqlStore cs ->
-        let serializer = new XmlSerializer(typedefof<'a>)
-        serializer.Deserialize(XmlReader.Create(new StringReader(s))) :?> 'a
+        SharpXml.XmlSerializer.DeserializeFromString<'a>(s)
     | PostgresStore cs ->
         JsonConvert.DeserializeObject<'a>(s)
 
