@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tests.WorkingWithDocuments.fs" />
+    <Compile Include="Tests.RunningScripts.fs" />
     <None Include="packages.config" />
     <EmbeddedResource Include="001-create.sql" />
     <None Include="App.config" />

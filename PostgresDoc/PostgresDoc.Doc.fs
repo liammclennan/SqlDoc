@@ -46,7 +46,6 @@ let private getParameter (store:Store) conn k v =
 let private serialize o = function
     | SqlStore cs -> 
         let s = Serializer.serializeXml o
-//        System.Console.WriteLine(s)
         s
     | PostgresStore cs ->
         JsonConvert.SerializeObject(o)
@@ -124,4 +123,34 @@ let query<'a> (store:Store) select (m:(string * 'c) list) : 'a array =
     finally
         conn.Close()
 
+let runScript (store:Store) (script:string) =
+    use conn = getConnection store
+    conn.Open()
+    use transaction = conn.BeginTransaction()
+    use command = getCommand store script conn transaction
+    try
+        try
+            command.ExecuteNonQuery() |> ignore
+        with
+        | _ -> 
+            transaction.Rollback()
+            reraise()
+        transaction.Commit()
+    finally
+        conn.Close()
+    ()
 
+let createTable (store:Store) (tableName:string) = 
+    runScript store (System.String.Format("
+IF (not EXISTS (SELECT * 
+                 FROM INFORMATION_SCHEMA.TABLES 
+                 WHERE TABLE_SCHEMA = 'dbo' 
+                 AND  TABLE_NAME = '{0}'))
+BEGIN
+CREATE TABLE [dbo].[{0}](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Data] [xml] NOT NULL,
+    CONSTRAINT [PK_{0}] PRIMARY KEY CLUSTERED ( [Id] ASC )
+)
+END
+", tableName))
