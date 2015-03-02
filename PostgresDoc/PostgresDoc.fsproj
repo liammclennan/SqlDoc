@@ -74,6 +74,9 @@
       <HintPath>..\packages\Npgsql.2.2.3\lib\net45\Npgsql.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SequentialGuid">
+      <HintPath>..\packages\SequentialGuid\SequentialGuid.dll</HintPath>
+    </Reference>
     <Reference Include="SharpXml">
       <HintPath>..\packages\SharpXml2\build\SharpXml.dll</HintPath>
     </Reference>
