@@ -2,7 +2,7 @@
 open System.Configuration
 open Xunit
 open FsUnit.Xunit
-open PostgresDoc.Doc
+open PostgresDoc
 
 [<CLIMutable>]
 type Person = { _id: System.Guid; age: int; name: string }
@@ -31,7 +31,7 @@ let ``insert, read, update, delete a document (sql)`` () =
     // read
     let read = 
         [ "id", box id ] 
-        |> query<Person> storeSql @"SELECT [Data] from Person 
+        |> select<Person> storeSql @"SELECT [Data] from Person 
 Where Data.value('(/Person/_id)[1]', 'uniqueidentifier') = @id"
     o |> should equal read.[0]
     Array.length read |> should equal 1
@@ -43,7 +43,7 @@ Where Data.value('(/Person/_id)[1]', 'uniqueidentifier') = @id"
     // read again :{P
     let readUpdated = 
         ["id", box id] 
-        |> query<Person> storeSql "SELECT [Data] from Person where Id = @id"
+        |> select<Person> storeSql "SELECT [Data] from Person where Id = @id"
     updated |> should equal readUpdated.[0]
     Array.length readUpdated |> should equal 1
 
@@ -51,7 +51,7 @@ Where Data.value('(/Person/_id)[1]', 'uniqueidentifier') = @id"
     commit storeSql [delete o._id o]
     let readDeleted = 
         ["id", box id] 
-        |> query<Person> storeSql "select [Data] from Person where Id = @id"
+        |> select<Person> storeSql "select [Data] from Person where Id = @id"
     Array.length readDeleted |> should equal 0
 
 [<Fact>]
@@ -64,7 +64,7 @@ let ``insert, read, update, delete a document`` () =
     // read
     let read = 
         [ "id", box id ] 
-        |> query<Person> store "select data from Person where data->>'_id' = :id"
+        |> select<Person> store "select data from Person where data->>'_id' = :id"
     o |> should equal read.[0]
     Array.length read |> should equal 1
 
@@ -75,7 +75,7 @@ let ``insert, read, update, delete a document`` () =
     // read again :{P
     let readUpdated = 
         ["id", box id] 
-        |> query<Person> store "select data from Person where data->>'_id' = :id"
+        |> select<Person> store "select data from Person where data->>'_id' = :id"
     updated |> should equal readUpdated.[0]
     Array.length readUpdated |> should equal 1
 
@@ -83,7 +83,7 @@ let ``insert, read, update, delete a document`` () =
     commit store [delete o._id o]
     let readDeleted = 
         ["id", box id] 
-        |> query<Person> store "select data from Person where data->>'_id' = :id"
+        |> select<Person> store "select data from Person where data->>'_id' = :id"
     Array.length readDeleted |> should equal 0
 
 [<Fact>]

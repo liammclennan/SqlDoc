@@ -1,5 +1,4 @@
-﻿module PostgresDoc.Doc
-
+﻿module PostgresDoc
 open Npgsql
 open System.Data.SqlClient
 open System.Data.Common
@@ -101,7 +100,7 @@ let commit (store:Store) (uow:UnitOfWork<'a>) =
             conn.Close()
         ()
 
-let query<'a> (store:Store) select (m:(string * 'c) list) : 'a array = 
+let select<'a> (store:Store) select (m:(string * 'c) list) : 'a array = 
     let ps = Map.ofList m
     use conn = getConnection store
     conn.Open()

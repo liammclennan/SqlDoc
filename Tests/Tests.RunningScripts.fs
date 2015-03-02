@@ -2,7 +2,7 @@
 open System.Configuration
 open Xunit
 open FsUnit.Xunit
-open PostgresDoc.Doc
+open PostgresDoc
 
 let storeSql = SqlStore ConfigurationManager.AppSettings.["ConnSql"]
 
