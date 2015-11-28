@@ -10,7 +10,6 @@
     <AssemblyName>PostgresDoc</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <Name>PostgresDoc</Name>
-    <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -49,7 +48,6 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" Condition="Exists('$(FSharpTargetsPath)')" />
   <ItemGroup>
-    <Compile Include="Serializer.fs" />
     <Compile Include="PostgresDoc.fs" />
     <None Include="packages.config" />
     <Compile Include="AssemblyInfo.fs" />
@@ -57,10 +55,6 @@
     <None Include="Script1.fsx" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="FSharp.Core">
-      <HintPath>..\packages\FSharp.Core.3.1.2.1\lib\net40\FSharp.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Mono.Security">
       <HintPath>..\packages\Npgsql.2.2.3\lib\net45\Mono.Security.dll</HintPath>
       <Private>True</Private>

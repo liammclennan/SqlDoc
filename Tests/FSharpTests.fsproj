@@ -43,7 +43,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="FSharp.Core">
-      <HintPath>..\packages\FSharp.Core.3.1.2.1\lib\net40\FSharp.Core.dll</HintPath>
+      <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FsUnit.CustomMatchers">
@@ -73,8 +73,8 @@
     <Compile Include="Tests.RunningScripts.fs" />
     <None Include="packages.config" />
     <EmbeddedResource Include="001-create.sql" />
-    <None Include="App.config" />
     <None Include="Script1.fsx" />
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PostgresDoc\PostgresDoc.fsproj">

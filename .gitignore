@@ -4,3 +4,4 @@ bin/
 obj/
 obj/
 Tests/app.config
+packages/
