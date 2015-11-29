@@ -2,4 +2,5 @@ paket.exe
 bin/
 obj/
 .vs/
-packages/
+packages/*
+!packages/SharpXml2/
