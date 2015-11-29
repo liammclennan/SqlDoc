@@ -1,7 +1,5 @@
-*.user
+paket.exe
 bin/
-*.suo
 obj/
-obj/
-Tests/app.config
+.vs/
 packages/

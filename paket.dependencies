@@ -1,0 +1,11 @@
+source https://nuget.org/api/v2
+
+nuget FAKE
+nuget Npgsql
+nuget Newtonsoft.Json
+nuget FsUnit
+nuget FsUnit.Xunit
+nuget Xunit
+nuget DesignByContract
+nuget FSharp.Core 
+nuget Giv.n

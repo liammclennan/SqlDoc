@@ -63,8 +63,8 @@ let ``insert, read, update, delete a document`` () =
 
     // read
     let read = 
-        [ "id", box id ] 
-        |> select<Person> store "select data from Person where data->>'_id' = :id"
+        [ "id", id |> string |> box ] 
+        |> select<Person> store "select data from Person where (data->>'_id') = :id"
     o |> should equal read.[0]
     Array.length read |> should equal 1
 
@@ -74,7 +74,7 @@ let ``insert, read, update, delete a document`` () =
 
     // read again :{P
     let readUpdated = 
-        ["id", box id] 
+        ["id", string id |> box] 
         |> select<Person> store "select data from Person where data->>'_id' = :id"
     updated |> should equal readUpdated.[0]
     Array.length readUpdated |> should equal 1
@@ -82,7 +82,7 @@ let ``insert, read, update, delete a document`` () =
     // delete
     commit store [delete o._id o]
     let readDeleted = 
-        ["id", box id] 
+        ["id", string id |> box] 
         |> select<Person> store "select data from Person where data->>'_id' = :id"
     Array.length readDeleted |> should equal 0
 

@@ -22,22 +22,3 @@ let ``run ddl script`` () =
 
     runScript storeSql (sprintf "drop table [%s]" tableName)
     ()
-
-[<Fact>]
-let ``run SimpleAuth script`` ()=
-    runScript (SqlStore "Server=.\sql2014;Database=PostgresDoc;Trusted_Connection=True;") "
---IF (not EXISTS (SELECT * 
---                 FROM INFORMATION_SCHEMA.TABLES 
---                 WHERE TABLE_SCHEMA = 'dbo' 
---                 AND  TABLE_NAME = 'user'))
---BEGIN
-CREATE TABLE [dbo].[user](
-	[Id] [uniqueidentifier] NOT NULL,
-	[Data] [xml] NOT NULL,
- CONSTRAINT [PK_card] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-))
---END
-"
-    ()
