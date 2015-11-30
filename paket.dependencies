@@ -6,6 +6,7 @@ nuget Newtonsoft.Json
 nuget FsUnit
 nuget FsUnit.Xunit
 nuget Xunit
+nuget Xunit.Runner.Console
 nuget DesignByContract
 nuget FSharp.Core 
 nuget Giv.n

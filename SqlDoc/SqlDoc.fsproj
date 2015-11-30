@@ -60,7 +60,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SharpXml">
-      <HintPath>..\packages\SharpXml2\build\SharpXml.dll</HintPath>
+      <HintPath>..\lib\SharpXml2\build\SharpXml.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
