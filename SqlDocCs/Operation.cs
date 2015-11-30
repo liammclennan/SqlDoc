@@ -1,6 +1,6 @@
 ﻿using DesignByContract;
 
-namespace PostgresDocCs
+namespace SqlDocCs
 {
     public enum Verb {
         Insert,Update,Delete

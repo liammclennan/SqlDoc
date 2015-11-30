@@ -2,7 +2,7 @@
 open System.Configuration
 open Xunit
 open FsUnit.Xunit
-open PostgresDoc
+open SqlDoc
 
 [<CLIMutable>]
 type Person = { _id: System.Guid; age: int; name: string }

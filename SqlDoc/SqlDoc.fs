@@ -1,4 +1,5 @@
-﻿module PostgresDoc
+﻿module SqlDoc
+
 open Npgsql
 open System.Data.SqlClient
 open System.Data.Common

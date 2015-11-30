@@ -51,7 +51,7 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="PostgresDoc.fs" />
+    <Compile Include="SqlDoc.fs" />
     <None Include="paket.references" />
   </ItemGroup>
   <ItemGroup>

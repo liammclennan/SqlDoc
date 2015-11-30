@@ -1,27 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PostgresDocCs
+namespace SqlDocCs
 {
     public class Query<T>
     {
         public static T[] For(PostgresConnection connection, string sql, Dictionary<string, object> parameters = null)
         {
-            return For(PostgresDoc.Store.NewPostgresStore(connection.String), sql, parameters);
+            return For(SqlDoc.Store.NewPostgresStore(connection.String), sql, parameters);
         }
 
         public static T[] For(SqlConnection connection, string sql, Dictionary<string, object> parameters = null)
         {
-            return For(PostgresDoc.Store.NewSqlStore(connection.String), sql, parameters);
+            return For(SqlDoc.Store.NewSqlStore(connection.String), sql, parameters);
         }
 
-        private static T[] For(PostgresDoc.Store store, string sql, Dictionary<string, object> parameters = null)
+        private static T[] For(SqlDoc.Store store, string sql, Dictionary<string, object> parameters = null)
         {
             parameters = parameters ?? new Dictionary<string, object>();
-            return PostgresDoc.select<T>(store, sql, DictionaryToListOfTuples(parameters));
+            return SqlDoc.select<T>(store, sql, DictionaryToListOfTuples(parameters));
         }
 
         private static Microsoft.FSharp.Collections.FSharpList<Tuple<string, object>> DictionaryToListOfTuples(Dictionary<string, object> parameters)

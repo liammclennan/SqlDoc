@@ -1,11 +1,11 @@
-PostgresDoc
+SqlDoc
 ===========
 
-PostgresDoc is a unit of work + document database on Postgresql. There are [many reasons why Postgres makes a good document store](http://withouttheloop.com/articles/2014-09-30-postgresql-nosql/) including speed, stability, ecosystem, ACID transactions, mixing with relational data and joins.
+SqlDoc is a unit of work + document database on Postgresql (JSON) and Sql Server (XML). There are [many reasons why Postgres makes a good document store](http://withouttheloop.com/articles/2014-09-30-postgresql-nosql/) including speed, stability, ecosystem, ACID transactions, mixing with relational data and joins.
 
 As your program runs, record a series of data updates (the unit of work). At the end of the unit of work persist all the changes in a transaction. Changes can be inserts, updates or deletes. PostgresDoc also provides a querying API. 
 
-PostgresDoc is written in F# but provides APIs for F# (PostgresDoc) and C# (PostgresDocCs). The C# version simply translates to the F# API. 
+PostgresDoc is written in F# but provides APIs for F# and C#. The C# version simply translates to the F# API. 
 
 Unit of Work API
 ----------------
