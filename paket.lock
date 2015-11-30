@@ -4,6 +4,7 @@ NUGET
     DesignByContract (1.0.1)
     FAKE (4.9.3)
     FSharp.Core (4.0.0.1)
+    FsPickler (1.6.2)
     FsUnit (1.4.0)
       FSharp.Core (>= 3.1.2.5)
       NUnit (2.6.4)

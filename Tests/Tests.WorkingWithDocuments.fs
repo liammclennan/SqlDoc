@@ -32,7 +32,7 @@ let ``insert, read, update, delete a document (sql)`` () =
     let read = 
         [ "id", box id ] 
         |> select<Person> storeSql @"SELECT [Data] from Person 
-Where Data.value('(/Person/_id)[1]', 'uniqueidentifier') = @id"
+Where Data.value('(/FsPickler/value/instance/id)[1]', 'uniqueidentifier') = @id"
     o |> should equal read.[0]
     Array.length read |> should equal 1
 

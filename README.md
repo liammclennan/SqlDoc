@@ -71,7 +71,7 @@ Unit of Work API
 
     let peopleWhoAreThirty = 
         [ "age", box (30) ] 
-        |> query<Person> store "select data from people where data->>'age' = :age"
+        |> select<Person> store "select data from people where data->>'age' = :age"
 
 Expected Schema
 ---------------

@@ -10,3 +10,4 @@ nuget Xunit.Runner.Console
 nuget DesignByContract
 nuget FSharp.Core 
 nuget Giv.n
+nuget FsPickler

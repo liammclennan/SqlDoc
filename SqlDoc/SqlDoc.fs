@@ -5,6 +5,7 @@ open System.Data.SqlClient
 open System.Data.Common
 open Newtonsoft.Json
 open System.IO
+open Nessos.FsPickler
 
 type Store = SqlStore of connString:string | PostgresStore of connString:string
 
@@ -16,6 +17,8 @@ type Operation<'a> =
     | Delete of KeyedValue<'a>
 
 type UnitOfWork<'a> = Operation<'a> list
+
+let xmlSerializer = FsPickler.CreateXmlSerializer(indent = true)
 
 let insert (key:'a) (value:'b) =
     Insert (key, box value)
@@ -48,13 +51,15 @@ let private getParameter (store:Store) conn k v =
 
 let private serialize o = function
     | SqlStore cs -> 
-        SharpXml.XmlSerializer.SerializeToString o
+        let w = new System.IO.StringWriter()
+        xmlSerializer.Serialize(w, o)
+        w.ToString()
     | PostgresStore cs ->
         JsonConvert.SerializeObject(o)
 
 let private deserialize<'a> s = function
-    | SqlStore cs ->
-        SharpXml.XmlSerializer.DeserializeFromString<'a>(s)
+    | SqlStore cs ->        
+        xmlSerializer.Deserialize<obj>(new StringReader(s)) :?> 'a
     | PostgresStore cs ->
         JsonConvert.DeserializeObject<'a>(s)
 

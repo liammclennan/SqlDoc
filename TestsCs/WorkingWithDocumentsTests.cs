@@ -8,7 +8,8 @@ using Xunit;
 
 namespace CSharpTests
 {
-    public class Person 
+    [Serializable]
+    public class PersonCs 
     {
         public Guid _id { get; set; }
         public string Name { get; set; }
@@ -19,7 +20,7 @@ namespace CSharpTests
     public class WorkingWithDocumentsTests
     {
         private Queue<Operation<Guid>> _uow;
-        private Person _ernesto;
+        private PersonCs _ernesto;
         private SqlConnection connString = SqlConnection.From(ConfigurationManager.AppSettings["ConnSql"]);
 
         public WorkingWithDocumentsTests()
@@ -30,7 +31,7 @@ namespace CSharpTests
         [Fact]
         public void UnitOfWork_JustInsert()
         {
-            _ernesto = new Person
+            _ernesto = new PersonCs
             {
                 _id = Guid.NewGuid(),
                 Name = "Ernesto",
@@ -44,9 +45,9 @@ namespace CSharpTests
 
         [Fact]
         public void CanQueryAll() {
-            var e = Query<Person>.For(
+            var e = Query<PersonCs>.For(
                 connString,
-                "select data from Person");
+                "select data from PersonCs");
             Assert.NotNull(e);
         }
 
@@ -62,9 +63,9 @@ namespace CSharpTests
 
         private void TheDocumentWasInserted()
         {
-            var e = Query<Person>.For(
+            var e = Query<PersonCs>.For(
                 connString, 
-                "select data from Person where Data.value('(/Person/_id)[1]', 'uniqueidentifier') = @id",
+                "select data from PersonCs where Data.value('(/FsPickler/value/instance/idkBackingField)[1]', 'uniqueidentifier') = @id",
                 new Dictionary<string, object> { {"id", _ernesto._id} });
             Assert.Equal(1, e.Length);
             Assert.Equal("Ernesto", e.First().Name);
