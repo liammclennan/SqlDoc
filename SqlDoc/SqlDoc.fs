@@ -29,8 +29,14 @@ let update (key:'a) (value:'b) =
 let delete (key:'a) (value:'b) =
     Delete (key, box value)
 
-let private tableName o = 
-    o.GetType().Name.ToLowerInvariant()
+let private typeToName (t:System.Type) =
+    t.Name.ToLowerInvariant()
+
+let tableName<'a> =
+    typedefof<'a> |> typeToName
+
+let private objectToTableName o = 
+    o.GetType() |> typeToName
 
 let private getConnection = function
     | SqlStore conn -> new SqlConnection(conn) :> DbConnection
@@ -73,8 +79,7 @@ let commit (store:Store) (uow:UnitOfWork<'a>) =
     use transaction = conn.BeginTransaction()
     
     let insertUpdate id o (p:string) =
-        System.Console.WriteLine(p)
-        let pattern = System.String.Format(p, o |> tableName, parameterPrefix store)
+        let pattern = System.String.Format(p, o |> objectToTableName, parameterPrefix store)
         let command = getCommand store pattern conn transaction
         command.Parameters.Add(getParameter store conn "id" id) |> ignore
         command.Parameters.Add(getParameter store conn "data" (serialize o store)) |> ignore
@@ -84,7 +89,7 @@ let commit (store:Store) (uow:UnitOfWork<'a>) =
     let update (id:'a) (o:obj) = insertUpdate id o @"update ""{0}"" set data = {1}data where id = {1}id"
 
     let delete id o =
-        let pattern = System.String.Format(@"delete from ""{0}"" where id = {1}id", o |> tableName, parameterPrefix store)
+        let pattern = System.String.Format(@"delete from ""{0}"" where id = {1}id", o |> objectToTableName, parameterPrefix store)
         let command = getCommand store pattern conn transaction
         command.Parameters.Add(getParameter store conn "id" id) |> ignore
         command.ExecuteNonQuery()

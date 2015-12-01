@@ -99,15 +99,15 @@ let ``commit a unit of work`` () =
     commit store uow
     ()
 
-[<Fact>]
-let ``check perf`` () =
-   let uow = [
-       for i in [1..10000] do
-           let id = System.Guid.NewGuid()
-           yield insert id { _id = id ; age = i; name = "person" + i.ToString() }
-   ]
-   commit store uow
-
+//[<Fact>]
+//let ``check perf`` () =
+//   let uow = [
+//       for i in [1..10000] do
+//           let id = System.Guid.NewGuid()
+//           yield insert id { _id = id ; age = i; name = "person" + i.ToString() }
+//   ]
+//   commit store uow
+//
 //[<Fact>]
 //let ``check perf (sql)`` () =
 //   let uow = [

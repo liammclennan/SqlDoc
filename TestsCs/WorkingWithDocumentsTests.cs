@@ -6,7 +6,7 @@ using System.Configuration;
 using System.Linq;
 using Xunit;
 
-namespace CSharpTests
+namespace TestsCs
 {
     [Serializable]
     public class PersonCs 
@@ -15,13 +15,18 @@ namespace CSharpTests
         public string Name { get; set; }
         public int Age { get; set; }
         public string[] FavouriteThings { get; set; }
+        public override bool Equals(object obj)
+        {
+            var other = obj as PersonCs;
+            return _id == other._id && Name == other.Name && Age == other.Age && FavouriteThings.Length == other.FavouriteThings.Length; // ignores FavouriteThings
+        }
     }
 
     public class WorkingWithDocumentsTests
     {
         private Queue<Operation<Guid>> _uow;
         private PersonCs _ernesto;
-        private SqlConnection connString = SqlConnection.From(ConfigurationManager.AppSettings["ConnSql"]);
+        private IConnection connection = SqlConnection.From(ConfigurationManager.AppSettings["ConnSql"]);
 
         public WorkingWithDocumentsTests()
         {
@@ -45,8 +50,8 @@ namespace CSharpTests
 
         [Fact]
         public void CanQueryAll() {
-            var e = Query<PersonCs>.For(
-                connString,
+            var e = QueryFor<PersonCs>.For(
+                connection,
                 "select data from PersonCs");
             Assert.NotNull(e);
         }
@@ -58,13 +63,13 @@ namespace CSharpTests
 
         private void TheUnitOfWorkIsCommitted()
         {
-            UnitOfWork.CommitSql(connString, _uow);
+            UnitOfWork.Commit(connection, _uow);
         }
 
         private void TheDocumentWasInserted()
         {
-            var e = Query<PersonCs>.For(
-                connString, 
+            var e = QueryFor<PersonCs>.For(
+                connection, 
                 "select data from PersonCs where Data.value('(/FsPickler/value/instance/idkBackingField)[1]', 'uniqueidentifier') = @id",
                 new Dictionary<string, object> { {"id", _ernesto._id} });
             Assert.Equal(1, e.Length);

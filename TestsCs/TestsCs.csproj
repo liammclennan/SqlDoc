@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocumentSessionAPITests.cs" />
     <Compile Include="Givn.cs">
       <Paket>True</Paket>
     </Compile>

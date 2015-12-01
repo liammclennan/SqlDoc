@@ -4,16 +4,12 @@ using System.Linq;
 
 namespace SqlDocCs
 {
-    public class Query<T>
+    public class QueryFor<T>
     {
-        public static T[] For(PostgresConnection connection, string sql, Dictionary<string, object> parameters = null)
+        public static T[] For(IConnection connection, string sql, Dictionary<string, object> parameters = null)
         {
-            return For(SqlDoc.Store.NewPostgresStore(connection.String), sql, parameters);
-        }
-
-        public static T[] For(SqlConnection connection, string sql, Dictionary<string, object> parameters = null)
-        {
-            return For(SqlDoc.Store.NewSqlStore(connection.String), sql, parameters);
+            var store = UnitOfWork.ConnectionToStore(connection);
+            return For(store, sql, parameters);
         }
 
         private static T[] For(SqlDoc.Store store, string sql, Dictionary<string, object> parameters = null)
@@ -32,7 +28,7 @@ namespace SqlDocCs
 
         private static Tuple<string, object> KvpToTuple(KeyValuePair<string, object> kvp)
         {
-            return Tuple.Create<string, object>(kvp.Key, kvp.Value);
+            return Tuple.Create(kvp.Key, kvp.Value);
         }
     }
 }

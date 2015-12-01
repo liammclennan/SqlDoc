@@ -5,14 +5,23 @@ namespace SqlDocCs
 {
     public class UnitOfWork
     {
-        public static void Commit<TKey>(PostgresConnection connection, Queue<Operation<TKey>> uow)
+        public static void Commit<TKey>(IConnection connection, Queue<Operation<TKey>> uow)
         {
-            SqlDoc.commit(SqlDoc.Store.NewPostgresStore(connection.String), QueueToFSharpList(uow));
+            var store = ConnectionToStore(connection);
+            SqlDoc.commit(store, QueueToFSharpList(uow));
         }
 
-        public static void CommitSql<TKey>(SqlConnection connection, Queue<Operation<TKey>> uow)
+        public static SqlDoc.Store ConnectionToStore(IConnection connection)
         {
-            SqlDoc.commit(SqlDoc.Store.NewSqlStore(connection.String), QueueToFSharpList(uow));
+            if (connection is PostgresConnection)
+            {
+                return SqlDoc.Store.NewPostgresStore(connection.String);
+            }
+            if (connection is SqlConnection)
+            {
+                return SqlDoc.Store.NewSqlStore(connection.String);
+            }
+            throw new ArgumentException("Unknown IConnection type");
         }
 
         private static Microsoft.FSharp.Collections.FSharpList<SqlDoc.Operation<TKey>> QueueToFSharpList<TKey>(Queue<Operation<TKey>> uow)
