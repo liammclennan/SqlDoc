@@ -26,7 +26,7 @@ namespace TestsCs
     {
         private Queue<Operation<Guid>> _uow;
         private PersonCs _ernesto;
-        private IConnection connection = SqlConnection.From(ConfigurationManager.AppSettings["ConnSql"]);
+        private IConnection connection = SqlConnection.From(ConfigurationManager.AppSettings["ConnSqlXml"]);
 
         public WorkingWithDocumentsTests()
         {

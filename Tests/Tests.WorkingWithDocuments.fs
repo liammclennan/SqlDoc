@@ -30,7 +30,41 @@ let ``insert (sql json)`` () =
     commit storeSqlJson [insert id  o]
 
 [<Fact>]
-let ``insert, read, update, delete a document (sql)`` () =
+let ``insert, read, update, delete a document (sql json)`` () =
+    // insert
+    let id = System.Guid.NewGuid() 
+    let o = { _id = id; age = 45; name = "Cecile" }
+    commit storeSqlJson [insert id  o]
+
+    // read
+    let read = 
+        [ "id", box id ] 
+        |> select<Person> storeSqlJson @"SELECT [Data] from Person 
+where JSON_VALUE([Data], '$._id') = @id"
+    o |> should equal read.[0]
+    Array.length read |> should equal 1
+
+    // update
+    let updated = {o with age = 46 }
+    commit storeSqlJson [update o._id updated]
+
+    // read again :{P
+    let readUpdated = 
+        ["id", box id] 
+        |> select<Person> storeSqlJson "SELECT [Data] from Person where Id = @id"
+    updated |> should equal readUpdated.[0]
+    Array.length readUpdated |> should equal 1
+
+    // delete
+    commit storeSqlJson [delete o._id o]
+    let readDeleted = 
+        ["id", box id] 
+        |> select<Person> storeSqlJson "select [Data] from Person where Id = @id"
+    Array.length readDeleted |> should equal 0
+
+
+[<Fact>]
+let ``insert, read, update, delete a document (sql xml)`` () =
     // insert
     let id = System.Guid.NewGuid() 
     let o = { _id = id; age = 45; name = "Cecile" }

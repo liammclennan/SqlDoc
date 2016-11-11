@@ -79,7 +79,7 @@ namespace TestsCs
         }
 
         private IDocumentSession<Guid> _documentSession =
-            new DocumentSession<Guid>(SqlConnection.From(ConfigurationManager.AppSettings["ConnSql"]));
+            new DocumentSession<Guid>(SqlConnection.From(ConfigurationManager.AppSettings["ConnSqlXml"]));
         private PersonCs _aDocument;
     }
 }
