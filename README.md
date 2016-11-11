@@ -122,7 +122,43 @@ The database table should have the same name as the type, an `id` column matchin
 
 In the example above I have used `Guid` (`uuid`) identifiers and a type called `Person` so:
  
-	create table "person" ( 
-		id uuid NOT NULL PRIMARY KEY,
-		data json NOT NULL 
-	);
+### Postgres
+
+```
+create table "person" ( 
+	id uuid NOT NULL PRIMARY KEY,
+	data json NOT NULL 
+);
+```
+
+### Sql Server (xml)
+
+```
+CREATE TABLE [dbo].[person](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Data] [xml] NOT NULL,
+ CONSTRAINT [PK_person] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)
+```
+
+### Sql Server (json)
+
+```
+CREATE TABLE [dbo].[person](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Data] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_person] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)
+```
+
+Development Instructions
+======================
+
+1. [Install Paket](https://fsprojects.github.io/Paket/installation.html)
+1. Build
+1. Create Postgres, old Sql Server and Sql Server >= 2016 databases matching the connection strings in `Tests/app.config`.
+1. Run the tests

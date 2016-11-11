@@ -12,7 +12,8 @@ type CustomerName(firstName, middleInitial, lastName) =
     member this.LastName = lastName
 
 let store = PostgresStore ConfigurationManager.AppSettings.["ConnString"]
-let storeSql = SqlStore ConfigurationManager.AppSettings.["ConnSql"]
+let storeSql = SqlXmlStore ConfigurationManager.AppSettings.["ConnSqlXml"]
+let storeSqlJson = SqlJsonStore ConfigurationManager.AppSettings.["ConnSqlJson"]
 
 [<Fact>]
 let ``insert (sql)`` () =
@@ -20,6 +21,13 @@ let ``insert (sql)`` () =
     let id = System.Guid.NewGuid() 
     let o = { _id = id; age = 45; name = "Cecile" }
     commit storeSql [insert id  o]
+
+[<Fact>]
+let ``insert (sql json)`` () =
+    // insert
+    let id = System.Guid.NewGuid() 
+    let o = { _id = id; age = 45; name = "Cecile" }
+    commit storeSqlJson [insert id  o]
 
 [<Fact>]
 let ``insert, read, update, delete a document (sql)`` () =

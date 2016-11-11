@@ -4,7 +4,7 @@ open Xunit
 open FsUnit.Xunit
 open SqlDoc
 
-let storeSql = SqlStore ConfigurationManager.AppSettings.["ConnSql"]
+let storeSql = SqlXmlStore ConfigurationManager.AppSettings.["ConnSqlXml"]
 
 [<Fact>]
 let ``run ddl script`` () =

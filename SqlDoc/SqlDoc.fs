@@ -7,7 +7,10 @@ open Newtonsoft.Json
 open System.IO
 open Nessos.FsPickler
 
-type Store = SqlStore of connString:string | PostgresStore of connString:string
+type Store = 
+    | SqlXmlStore of connString:string 
+    | PostgresStore of connString:string
+    | SqlJsonStore of connString:string
 
 type KeyedValue<'a> = 'a * obj
 
@@ -39,38 +42,46 @@ let private objectToTableName o =
     o.GetType() |> typeToName
 
 let private getConnection = function
-    | SqlStore conn -> new SqlConnection(conn) :> DbConnection
+    | SqlXmlStore conn -> new SqlConnection(conn) :> DbConnection
     | PostgresStore conn -> new NpgsqlConnection(conn) :> DbConnection
+    | SqlJsonStore conn -> new SqlConnection(conn) :> DbConnection
 
 let private getCommand (store:Store) pattern (conn:DbConnection) (transaction:DbTransaction) : DbCommand =
     match store with 
-        | SqlStore cs -> new SqlCommand(pattern, conn :?> SqlConnection, transaction :?> SqlTransaction) :> DbCommand
+        | SqlXmlStore cs -> new SqlCommand(pattern, conn :?> SqlConnection, transaction :?> SqlTransaction) :> DbCommand
+        | SqlJsonStore cs -> new SqlCommand(pattern, conn :?> SqlConnection, transaction :?> SqlTransaction) :> DbCommand
         | PostgresStore cs -> new NpgsqlCommand(pattern, conn :?> NpgsqlConnection, transaction :?> NpgsqlTransaction) :> DbCommand
 
 let private getParameter (store:Store) conn k v =
     match store with
-        | SqlStore cs -> new SqlParameter(ParameterName = k, Value = v) :> DbParameter
+        | SqlXmlStore cs -> new SqlParameter(ParameterName = k, Value = v) :> DbParameter
+        | SqlJsonStore cs -> new SqlParameter(ParameterName = k, Value = v) :> DbParameter
         | PostgresStore cs -> 
             let p = new NpgsqlParameter(ParameterName = k, Value = v)
             if k = "data" then p.NpgsqlDbType <- NpgsqlTypes.NpgsqlDbType.Json
             p :> DbParameter
 
 let private serialize o = function
-    | SqlStore cs -> 
+    | SqlXmlStore cs -> 
         let w = new System.IO.StringWriter()
         xmlSerializer.Serialize(w, o)
         w.ToString()
     | PostgresStore cs ->
         JsonConvert.SerializeObject(o)
+    | SqlJsonStore cs ->
+        JsonConvert.SerializeObject(o)
 
 let private deserialize<'a> s = function
-    | SqlStore cs ->        
+    | SqlXmlStore cs ->        
         xmlSerializer.Deserialize<obj>(new StringReader(s)) :?> 'a
     | PostgresStore cs ->
+        JsonConvert.DeserializeObject<'a>(s)    
+    | SqlJsonStore cs ->
         JsonConvert.DeserializeObject<'a>(s)
 
 let private parameterPrefix = function
-    | SqlStore _ -> "@"        
+    | SqlXmlStore _ -> "@"        
+    | SqlJsonStore _ -> "@"        
     | PostgresStore _ -> ":"
 
 let commit (store:Store) (uow:UnitOfWork<'a>) = 

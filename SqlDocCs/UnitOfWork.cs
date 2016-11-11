@@ -19,7 +19,7 @@ namespace SqlDocCs
             }
             if (connection is SqlConnection)
             {
-                return SqlDoc.Store.NewSqlStore(connection.String);
+                return SqlDoc.Store.NewSqlXmlStore(connection.String);
             }
             throw new ArgumentException("Unknown IConnection type");
         }
