@@ -1,7 +1,7 @@
 SqlDoc
 ===========
 
-SqlDoc is a unit of work + document database on Postgresql (JSON) and [Sql Server](https://github.com/liammclennan/SqlDoc/wiki/SQL-Server-Support) (XML). There are [many reasons why Postgres makes a good document store](http://withouttheloop.com/articles/2014-09-30-postgresql-nosql/) including speed, stability, ecosystem, ACID transactions, mixing with relational data and joins.
+SqlDoc is a unit of work + document database on Postgresql (JSON), [Sql Server](https://github.com/liammclennan/SqlDoc/wiki/SQL-Server-Support) (XML) and [Sql Server 2016](http://withouttheloop.com/articles/2016-11-12-working-with-documents/) (JSON). There are [many reasons why Postgres makes a good document store](http://withouttheloop.com/articles/2014-09-30-postgresql-nosql/) including speed, stability, ecosystem, ACID transactions, mixing with relational data and joins.
 
 As your program runs, record a series of data updates (the unit of work). At the end of the unit of work persist all the changes in a transaction. Changes can be inserts, updates or deletes. PostgresDoc also provides a querying API. 
 
